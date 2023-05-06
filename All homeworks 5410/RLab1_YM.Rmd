@@ -1,0 +1,171 @@
+---
+title: "ADTA 5410 RLab1"
+author: "Yvonne, Martinez"
+date: "3/25/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+You are expected to complete this homework in R by using this Rmarkdown file in RStudio environment.   Create a new folder in your computer and save this Rmarkdown file and the Data_RLab1.csv file in the same folder. 
+
+
+Submission instructions: Submit your knitted Rmarkdown file along with your answers in Canvas.   
+
+
+0. Write your full name in the "Author" part above and save as this Rmarkdown file by adding your initials to the end (i.e., RLab1_LB.Rmd) 
+
+
+
+## Intro 
+
+In this Lab assignment, we will use data from the U.S. Dept. of Education College scorecard. Data is in csv file. We will import it to R format and name the dataset as **school_raw** by using the **read.csv** command, shown below, and in cases where any cell takes the value of "NULL" or "PrivacySuppressed", we will code them NA. 
+
+
+```{r }
+if (!require("knitr")) install.packages("knitr")
+if (!require("dplyr")) install.packages("dplyr")
+library(knitr)
+library(dplyr)
+school_raw <- read.csv("Data_RLab1.csv", na = c("NULL", "PrivacySuppressed"))
+
+```
+
+Data is messy. There are `r dim(school_raw)[1]` observations and `r dim(school_raw)[2]` variables.   
+
+
+```{r }
+
+dim(school_raw)
+```
+
+For the sake of this lab assignment, we will only keep the following 6 variables.  
+
+
+- CONTROL - onwnership type (public, private - NP, private - P)
+- C150_4 - Completion/graduation  rate
+- PREDDEG - Predominat type of degree awarded
+- SAT_AVG - average SAT score of students admitted
+- UGDS - Enrollment of undergraduat certificate/degree-seeking students
+- COSTT4_A - Average cost of attendance (academic year institutions)
+
+
+We will use the following code to keep only the above 6 variables and call the reduced dataset *schools*. 
+
+```{r }
+
+schools  <- subset(school_raw, select =c(CONTROL,  C150_4, PREDDEG,SAT_AVG, UGDS, COSTT4_A))
+
+head(schools)
+```
+
+
+
+
+
+# Prepare the Data 
+1. **[Prepare the Data #1]**  Filter *schools* data by  keeping only predominantly bachelor's degree granting schools ($PREDDEG=='3'$) and call it *schools_filtered*. **What are the dimensions of the filtered data *schools_filtered* (number of rows and columns)**
+ 
+
+
+```{r }
+schools_filtered<-schools[schools$PREDDEG=='3',]
+dim(schools_filtered)
+```
+2.    **[Prepare the Data #2]** How many missing values are there for each variable in the filtered data set *schools_filtered*? Write an R code below to calculate the total number of missing values for each variable. 
+```{r }
+sapply(schools_filtered,function(x) sum(is.na(x)))
+```
+
+3.  **[Prepare the Data #3]** Now, write an R code to drop observations in *schools_filtered* when C150_4 variable has missing values and call it *schools_filtered1* .  What are the dimensions of *schools_filtered1* data (number of rows and columns)?    
+
+```{r }
+schools_filtered1<-subset(schools_filtered,!is.na(C150_4))
+dim(schools_filtered1)
+
+```
+
+
+4.  **[Prepare the Data #4]** Now, impute (replace) missing values in **schools_filtered1** **SAT_AVG** and **COSTT4_A** with their corresponding median scores. When you calculate the median for each variable, ignore the NAs. What are the mean values of **SAT_AVG** and **COSTT4_A**  after imputation?
+
+
+```{r }
+# Your code goes in here
+#impute
+schools_filtered1$SAT_AVG[is.na(schools_filtered1$SAT_AVG)] <-median(schools_filtered1$SAT_AVG, na.rm = TRUE)
+
+sapply(schools_filtered1, function(x) sum(is.na(x))) #calculate the missing values
+
+#mean values after imputation 
+mean(schools_filtered1$SAT_AVG)
+
+#impute
+schools_filtered1$COSTT4_A[is.na(schools_filtered1$COSTT4_A)] <-median(schools_filtered1$COSTT4_A, na.rm = TRUE)
+
+#mean values after imputation 
+mean(schools_filtered1$COSTT4_A)
+
+```
+
+
+5. **[Prepare the Data #5]**  Now, drop ***PREDDEG**  from the data set and name your dataset as **schools_filtered2**. 
+Also,  rename  variables in **schools_filtered2** as follows:   
+Rename SAT_AVG  to SAT
+
+Rename C150_4   to graduation_rate
+
+Rename UGDS  to enrollment.
+
+Rename COSTT4_A  to cost.
+
+Then, write an R code to treat CONTROL variable as a factor.  After that, run the following code in your console and choose from below the corresponding code output:
+**schools_filtered2$CONTROL<-as.factor(schools_filtered2$CONTROL)**
+
+```{r }
+# Your code goes in here
+
+# first need to drop PREDDEG and rename data set
+schools_filtered2<-subset(schools_filtered1, select=-c(schools_filtered1$PREDDEG))
+
+#Rename columns
+names(schools_filtered2)[names(schools_filtered2)=="SAT_AVG"]<- "SAT"
+names(schools_filtered2)[names(schools_filtered2)=="C150_4"]<- "graduation_rate"
+names(schools_filtered2)[names(schools_filtered2)=="UGDS"]<- "enrollment"
+names(schools_filtered2)[names(schools_filtered2)=="COSTT4_A"]<- "cost"
+
+#double check that it worked
+#head(schools_filtered2)
+
+#schools_filtered2$CONTROL<-as.factor(schools_filtered2$CONTROL)
+#cor(schools_filtered2$CONTROL, schools_filtered2$cost)
+
+```
+
+
+6. **[Prepare the Data #6]** 
+For the **enrollment** variable in **schools_filtered2**, calculate the followings:
+- The first quartile (Q1) for enrollment
+- The third quartile (Q3) for enrollment
+- Number of observations in enrollment data that can be considered extremely high (that are larger than 3rd quartile for enrollment+1.5*Interquartile range for enrollment)
+
+```{r }
+# Your code goes in here
+#first find the quartiles
+Q1<-quantile(schools_filtered2$enrollment, probs = .25)
+Q1
+Q3<-quantile(schools_filtered2$enrollment, probs = .75)
+Q3
+
+#find the interquartile 
+iqr = Q3 - Q1
+iqr
+
+#define the upper range
+upper_range <-Q3+(iqr*1.5)
+
+sum(schools_filtered2$enrollment > upper_range)
+
+#Make sure that your R codes will run. Knit your file to html and submit it on Canvas along with your answers.  

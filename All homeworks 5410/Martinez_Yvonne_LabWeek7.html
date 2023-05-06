@@ -1,0 +1,2535 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Yvonne Martinez">
+
+<title>ADTA 5410: Week 7 R Lab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Martinez_Yvonne_LabWeek7_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/quarto.js"></script>
+<script src="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/popper.min.js"></script>
+<script src="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Martinez_Yvonne_LabWeek7_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Martinez_Yvonne_LabWeek7_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Martinez_Yvonne_LabWeek7_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Martinez_Yvonne_LabWeek7_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ADTA 5410: Week 7 R Lab</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yvonne Martinez </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>We will use North Carollina birth records for the year 2004. We want to look at the relation between the habits and practices of expectant mothers and the birth of their children. The dataset is a random sample from the original dataset.</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p><strong>Predictors</strong></p>
+<ul>
+<li><p><strong>fage</strong>: father’s age in years.</p></li>
+<li><p><strong>mage</strong>: mother’s age in years.</p></li>
+<li><p><strong>mature</strong>: maturity status of mother.</p></li>
+<li><p><strong>weeks</strong>: length of pregnancy in weeks.</p></li>
+<li><p><strong>premie</strong>: whether the birth was classified as premature (premie) or full-term.</p></li>
+<li><p><strong>visits</strong>: number of hospital visits during pregnancy.</p></li>
+<li><p><strong>marital</strong>: whether mother is married or not married at birth.</p></li>
+<li><p><strong>gained</strong>: weight gained by mother during pregnancy in pounds.</p></li>
+<li><p><strong>gender</strong>: gender of the baby, female or male.</p></li>
+<li><p><strong>habit</strong>: status of the mother as a nonsmoker or a smoker.</p></li>
+<li><p><strong>whitemom</strong>: whether mother is white or not white.</p></li>
+</ul>
+</section>
+<section id="outcome-variables" class="level1">
+<h1><strong>Outcome variables<a href="https://instructorecdsjwfd.labs.coursera.org/notebooks/source/Week5/Week5_Lab.ipynb#Outcome-variables">¶</a></strong></h1>
+<ul>
+<li><strong>weight</strong>: weight of the baby at birth in pounds. (Regression problem)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data is stored in a csv file, the first row contains the variable names. </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># we call our data mydata</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>mydata<span class="ot">&lt;-</span><span class="fu">read.csv</span> (<span class="st">"nc.csv"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># let's print the data structure to have an idea of the data we are dealing with</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>mydata<span class="ot">&lt;-</span>mydata<span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>lowbirthweight)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mydata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   999 obs. of  12 variables:
+ $ fage    : int  NA NA 19 21 NA NA 18 17 NA 20 ...
+ $ mage    : int  13 14 15 15 15 15 15 15 16 16 ...
+ $ mature  : chr  "younger mom" "younger mom" "younger mom" "younger mom" ...
+ $ weeks   : int  39 42 37 41 39 38 37 35 38 37 ...
+ $ premie  : chr  "full term" "full term" "full term" "full term" ...
+ $ visits  : int  10 15 11 6 9 19 12 5 9 13 ...
+ $ marital : chr  "married" "married" "married" "married" ...
+ $ gained  : int  38 20 38 34 27 22 76 15 NA 52 ...
+ $ weight  : num  7.63 7.88 6.63 8 6.38 5.38 8.44 4.69 8.81 6.94 ...
+ $ gender  : chr  "male" "male" "female" "male" ...
+ $ habit   : chr  "nonsmoker" "nonsmoker" "nonsmoker" "nonsmoker" ...
+ $ whitemom: chr  "not white" "not white" "white" "white" ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's also take a look at the data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(mydata))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  fage mage      mature weeks    premie visits marital gained weight gender
+1   NA   13 younger mom    39 full term     10 married     38   7.63   male
+2   NA   14 younger mom    42 full term     15 married     20   7.88   male
+3   19   15 younger mom    37 full term     11 married     38   6.63 female
+4   21   15 younger mom    41 full term      6 married     34   8.00   male
+5   NA   15 younger mom    39 full term      9 married     27   6.38 female
+6   NA   15 younger mom    38 full term     19 married     22   5.38   male
+      habit  whitemom
+1 nonsmoker not white
+2 nonsmoker not white
+3 nonsmoker     white
+4 nonsmoker     white
+5 nonsmoker not white
+6 nonsmoker not white</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check the summary statistics </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(mydata))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      fage            mage          mature              weeks      
+ Min.   :14.00   Min.   :13.00   Length:999         Min.   :20.00  
+ 1st Qu.:25.00   1st Qu.:22.00   Class :character   1st Qu.:37.00  
+ Median :30.00   Median :27.00   Mode  :character   Median :39.00  
+ Mean   :30.26   Mean   :26.99                      Mean   :38.33  
+ 3rd Qu.:35.00   3rd Qu.:32.00                      3rd Qu.:40.00  
+ Max.   :55.00   Max.   :50.00                      Max.   :45.00  
+ NA's   :170                                        NA's   :1      
+    premie              visits       marital              gained     
+ Length:999         Min.   : 0.0   Length:999         Min.   : 0.00  
+ Class :character   1st Qu.:10.0   Class :character   1st Qu.:20.00  
+ Mode  :character   Median :12.0   Mode  :character   Median :30.00  
+                    Mean   :12.1                      Mean   :30.33  
+                    3rd Qu.:15.0                      3rd Qu.:38.00  
+                    Max.   :30.0                      Max.   :85.00  
+                    NA's   :8                         NA's   :26     
+     weight          gender             habit             whitemom        
+ Min.   : 1.000   Length:999         Length:999         Length:999        
+ 1st Qu.: 6.380   Class :character   Class :character   Class :character  
+ Median : 7.310   Mode  :character   Mode  :character   Mode  :character  
+ Mean   : 7.104                                                           
+ 3rd Qu.: 8.060                                                           
+ Max.   :11.750                                                           
+                                                                          </code></pre>
+</div>
+</div>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
+<p>Data Split</p>
+<p>Before conducting our analysis, we will split our data into two, one for training and one for testing. In this lab assignment, use the <strong>sample</strong> function in <strong>rsample</strong> package to split your data by using the following seed: <strong>set.seed(1234)</strong></p>
+</section>
+</section>
+<section id="task-1" class="level1">
+<h1><strong>Task 1:</strong></h1>
+<p>By using the <strong>sample</strong> function in R, split <strong>mydata</strong> into training and test sets by putting 70% of the data in training. Use set.seed(1234) when you do the split. Name the training set as <strong>train_data</strong> and the test set as <strong>test_data</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can check to see if there is any missing values in the data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(mydata, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    fage     mage   mature    weeks   premie   visits  marital   gained 
+     170        0        0        1        1        8        0       26 
+  weight   gender    habit whitemom 
+       0        0        0        2 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Split mydata into training and test sets by putting 70% of the data in training.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Name the training set as train_data and the test set as test_data.</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>shuffleid <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(mydata), <span class="fu">round</span>(<span class="fl">0.7</span> <span class="sc">*</span> <span class="fu">nrow</span>(mydata)))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> mydata[shuffleid, ]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> mydata[<span class="sc">-</span>shuffleid, ]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View the training and test sets</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>train_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    fage mage      mature weeks    premie visits     marital gained weight
+284   25   22 younger mom    34    premie     10 not married     20   3.75
+848   36   34 younger mom    41 full term     10 not married     NA   6.94
+918   37   36  mature mom    38 full term     15 not married     40   7.00
+101   25   19 younger mom    40 full term     16     married     37   7.94
+623   30   29 younger mom    38 full term      7 not married     23   6.50
+905   34   36  mature mom    37 full term     14 not married     40   8.81
+645   NA   29 younger mom    34    premie     10     married     20   6.00
+934   39   37  mature mom    38 full term      5 not married     45   5.13
+400   32   25 younger mom    41 full term     13 not married     50   7.75
+900   37   35  mature mom    28    premie      8 not married     15   2.25
+98    19   19 younger mom    37 full term      0     married     12   6.94
+103   NA   19 younger mom    34    premie     10     married     NA   2.88
+726   32   31 younger mom    40 full term     12 not married     22   8.19
+602   31   29 younger mom    40 full term     15 not married     30   8.56
+326   NA   23 younger mom    25    premie     12     married     60   1.19
+79    20   19 younger mom    40 full term     15 not married     30   5.94
+974   43   39  mature mom    38 full term     17     married     40   7.50
+884   35   35  mature mom    38 full term     14 not married     35   8.06
+270   NA   22 younger mom    37 full term      9     married     41   6.25
+382   30   24 younger mom    41 full term     12 not married     40   8.13
+184   28   21 younger mom    38 full term     12     married     40   7.38
+574   29   28 younger mom    38 full term     10 not married     34   7.13
+4     21   15 younger mom    41 full term      6     married     34   8.00
+990   42   41  mature mom    38 full term     11     married     12   5.88
+661   33   30 younger mom    42 full term     15 not married     40   7.13
+552   30   28 younger mom    40 full term     15 not married     28   7.63
+212   NA   21 younger mom    40 full term     12     married     NA   7.44
+952   43   37  mature mom    38 full term     10 not married     23   8.50
+195   24   21 younger mom    41 full term     10     married     60   7.63
+511   31   27 younger mom    39 full term      5     married     35   6.31
+479   30   26 younger mom    38 full term     18 not married     37   7.50
+605   34   29 younger mom    40 full term     16     married     29   6.81
+634   40   29 younger mom    39 full term     14 not married     20   6.63
+901   42   35  mature mom    36    premie     18 not married     25   6.75
+578   34   28 younger mom    38 full term     12 not married     NA   7.25
+510   30   27 younger mom    43 full term     12 not married     17   7.94
+687   30   30 younger mom    35    premie     12 not married      0   9.19
+424   29   25 younger mom    41 full term      8 not married     33   9.38
+379   20   24 younger mom    38 full term     11     married     50   5.75
+816   34   33 younger mom    38 full term     16 not married     60   7.13
+108   NA   19 younger mom    35    premie     12     married     50   5.25
+131   21   20 younger mom    38 full term     10 not married     50   8.75
+343   25   24 younger mom    39 full term     10 not married     20  10.06
+41    20   18 younger mom    43 full term      8     married     50   7.31
+627   30   29 younger mom    39 full term     19 not married     30   7.31
+740   33   32 younger mom    NA      &lt;NA&gt;      9 not married     25   7.19
+840   36   34 younger mom    38 full term     14 not married     15   7.00
+928   41   36  mature mom    39 full term     14     married     56   7.06
+298   NA   23 younger mom    41 full term     14 not married     19   7.88
+811   37   33 younger mom    38 full term     13 not married     18   8.63
+258   21   22 younger mom    39 full term     15 not married     80   8.56
+629   30   29 younger mom    38 full term     10 not married     55   5.44
+984   44   40  mature mom    37 full term     30 not married     15   7.44
+182   32   21 younger mom    40 full term     11 not married     58   7.56
+305   23   23 younger mom    40 full term     13 not married      9   7.31
+358   30   24 younger mom    38 full term     15 not married     35   9.13
+696   35   31 younger mom    37 full term     10 not married     40   7.81
+307   36   23 younger mom    40 full term     10     married     47   7.63
+902   35   35  mature mom    28    premie      6     married     29   1.63
+945   39   37  mature mom    41 full term     17 not married     18   6.31
+221   27   21 younger mom    36    premie     12 not married     65   9.88
+736   32   31 younger mom    34    premie      9 not married     31   5.94
+561   27   28 younger mom    42 full term     15 not married     14   7.50
+313   27   23 younger mom    43 full term     15 not married     30   7.81
+136   31   20 younger mom    41 full term     13     married     27   7.00
+794   34   33 younger mom    39 full term     10 not married     40   8.06
+145   20   20 younger mom    38 full term     12     married     25   8.31
+123   21   20 younger mom    41 full term     14 not married     29   6.06
+776   NA   32 younger mom    33    premie     10 not married     60   5.06
+234   26   22 younger mom    40 full term     10     married     23   8.25
+608   37   29 younger mom    37 full term     15 not married     45   6.94
+495   NA   26 younger mom    32    premie     18     married     19   4.00
+534   31   27 younger mom    39 full term     11 not married     23   7.56
+803   35   33 younger mom    37 full term     15 not married     30   7.50
+297   24   23 younger mom    39 full term     13 not married     30   6.69
+208   NA   21 younger mom    38 full term     10 not married     12   6.75
+958   45   37  mature mom    35    premie      9 not married     45   4.31
+854   40   34 younger mom    44 full term     12 not married     28   8.75
+569   28   28 younger mom    44 full term     15 not married     35   8.44
+522   NA   27 younger mom    37 full term     10     married     37   6.81
+997   39   45  mature mom    40 full term     15 not married     32   6.94
+248   NA   22 younger mom    37 full term     12     married     NA   6.69
+365   27   24 younger mom    39 full term     10 not married     35   7.13
+665   36   30 younger mom    39 full term     11 not married     21   7.88
+643   30   29 younger mom    36    premie     14 not married     25   7.38
+595   NA   28 younger mom    33    premie      9     married     20   4.06
+434   34   25 younger mom    40 full term     12     married     44   5.81
+757   32   32 younger mom    38 full term     10 not married     42   8.88
+760   40   32 younger mom    40 full term     14 not married     24   7.38
+218   24   21 younger mom    34    premie     15     married     16   5.44
+727   38   31 younger mom    39 full term     11 not married     85   7.63
+838   34   34 younger mom    37 full term     13 not married     30   8.75
+508   40   27 younger mom    37 full term      5     married     15   6.25
+276   30   22 younger mom    40 full term     16     married     18   7.81
+169   28   20 younger mom    35    premie      7     married     30   4.50
+71    NA   18 younger mom    36    premie     18     married     20   6.19
+573   31   28 younger mom    40 full term     16 not married     20   6.38
+864   38   34 younger mom    36    premie      7 not married     22   6.31
+985   42   40  mature mom    35    premie     12 not married     35   5.69
+895   NA   35  mature mom    37 full term     10 not married     25   5.63
+485   NA   26 younger mom    44 full term     14     married     25   9.13
+667   NA   30 younger mom    39 full term     10     married     38  11.75
+460   29   26 younger mom    38 full term     14 not married     38   8.75
+953   37   37  mature mom    39 full term     14 not married     30   8.38
+960   37   38  mature mom    40 full term     11 not married     44   8.75
+60    21   18 younger mom    41 full term     13     married     28   9.06
+449   33   26 younger mom    38 full term     15 not married     27   9.00
+548   27   28 younger mom    39 full term     22 not married     21   8.13
+887   35   35  mature mom    38 full term     12 not married     30   6.63
+19    20   17 younger mom    40 full term      8     married     20   8.25
+649   31   30 younger mom    41 full term     12 not married     25   8.25
+638   31   29 younger mom    41 full term     12 not married     30   7.69
+670   NA   30 younger mom    40 full term     10     married      0   6.88
+319   24   23 younger mom    38 full term     13     married     22   7.81
+116   21   20 younger mom    38 full term     15     married     30   6.31
+933   38   36  mature mom    36    premie     18 not married     25   4.13
+102   25   19 younger mom    41 full term     13     married     47   8.38
+214   21   21 younger mom    45 full term     10 not married     40   9.13
+826   35   34 younger mom    40 full term     12 not married     35   8.63
+390   NA   24 younger mom    35    premie      3     married     13   8.13
+597   28   29 younger mom    40 full term      5 not married     20   7.38
+879   39   35  mature mom    41 full term     11 not married     22   7.88
+160   22   20 younger mom    37 full term      8     married     27   6.69
+77    21   19 younger mom    39 full term     12     married     50   7.50
+529   NA   27 younger mom    39 full term      8     married     12   7.25
+126   25   20 younger mom    42 full term     15 not married     35   8.56
+262   21   22 younger mom    40 full term     10     married     85   5.81
+442   24   25 younger mom    29    premie     10     married      0   1.69
+642   29   29 younger mom    35    premie     30 not married     50   7.94
+181   25   21 younger mom    39 full term     10 not married     18   9.56
+779   35   33 younger mom    39 full term     12 not married     15   8.81
+828   40   34 younger mom    39 full term     15 not married     20   6.38
+163   20   20 younger mom    41 full term     12     married     24   7.50
+474   NA   26 younger mom    39 full term      6     married     20   5.88
+228   34   22 younger mom    37 full term     10     married     50   7.25
+789   36   33 younger mom    39 full term     13 not married     41   7.38
+883   NA   35  mature mom    40 full term     18     married     20   5.19
+646   23   29 younger mom    36    premie     12     married     30   6.00
+265   24   22 younger mom    39 full term      5     married     10   7.19
+427   NA   25 younger mom    39 full term     12 not married     41   6.88
+890   32   35  mature mom    38 full term     15 not married     20   6.38
+249   26   22 younger mom    38 full term      6 not married     10   5.44
+927   28   36  mature mom    38 full term     11 not married     17   7.06
+40    28   18 younger mom    41 full term     10     married     11   6.50
+541   27   27 younger mom    35    premie     10 not married     19   7.38
+497   28   27 younger mom    40 full term     16 not married     28   8.00
+697   27   31 younger mom    39 full term     14 not married     33   7.81
+991   43   41  mature mom    39 full term     14 not married     10   7.69
+450   30   26 younger mom    39 full term     12 not married     43   7.25
+806   40   33 younger mom    39 full term     10 not married     23   6.56
+600   29   29 younger mom    40 full term      9     married      0   8.06
+891   48   35  mature mom    37 full term     20 not married     18   6.25
+363   NA   24 younger mom    41 full term      6     married     60   8.31
+908   30   36  mature mom    37 full term     22 not married     28   6.19
+478   25   26 younger mom    43 full term      9 not married     23   7.44
+403   29   25 younger mom    38 full term     18 not married     20   7.88
+375   25   24 younger mom    40 full term     15 not married     29   8.50
+335   44   23 younger mom    36    premie      0     married     NA   5.50
+598   28   29 younger mom    39 full term     15 not married     38   7.88
+142   36   20 younger mom    41 full term     12     married     20   7.13
+444   23   25 younger mom    34    premie     11 not married     40   7.13
+844   35   34 younger mom    40 full term     15 not married     20   7.44
+659   30   30 younger mom    40 full term      9 not married     59   4.56
+904   37   36  mature mom    39 full term     13 not married     31   7.06
+457   NA   26 younger mom    42 full term     15     married     35   6.75
+188   18   21 younger mom    39 full term     14 not married     28   6.94
+432   26   25 younger mom    38 full term     10 not married     26   7.94
+488   NA   26 younger mom    42 full term     15     married     30   7.38
+538   30   27 younger mom    34    premie     15 not married     30   7.69
+857   35   34 younger mom    40 full term     16 not married     38   7.63
+215   NA   21 younger mom    38 full term     11 not married     41   8.31
+540   34   27 younger mom    32    premie     17     married     20   4.06
+613   42   29 younger mom    40 full term      8 not married     25   7.81
+833   34   34 younger mom    38 full term     11 not married     23   7.25
+296   29   23 younger mom    38 full term     20 not married     39   8.75
+328   28   23 younger mom    36    premie     12 not married     50   9.25
+147   25   20 younger mom    38 full term     15 not married     31   6.06
+701   40   31 younger mom    37 full term      9 not married     41   6.13
+708   31   31 younger mom    38 full term     18 not married     19   7.25
+84    NA   19 younger mom    42 full term     10     married     25   9.50
+83    NA   19 younger mom    39 full term     10     married     35   5.94
+250   23   22 younger mom    37 full term     14 not married     56   7.00
+875   36   35  mature mom    37 full term     14 not married     30   7.63
+281   22   22 younger mom    40 full term     13 not married      0   6.50
+675   31   30 younger mom    38 full term     13 not married     20   6.50
+963   42   38  mature mom    39 full term     15 not married     50   8.94
+431   25   25 younger mom    38 full term     12 not married     24   8.75
+30    17   17 younger mom    38 full term     12     married     22   6.06
+10    20   16 younger mom    37 full term     13     married     52   6.94
+830   38   34 younger mom    37 full term     20 not married     60   6.81
+441   NA   25 younger mom    36    premie      8     married     30   5.19
+937   NA   37  mature mom    41 full term      9     married     30   7.81
+345   24   24 younger mom    41 full term     13     married     NA   6.31
+592   34   28 younger mom    32    premie     11 not married     40   3.19
+585   37   28 younger mom    40 full term     12 not married     35   8.25
+660   25   30 younger mom    43 full term     11     married     47   8.75
+12    NA   16 younger mom    42 full term      8     married     34   8.81
+293   24   23 younger mom    37 full term     12 not married     30   6.44
+707   NA   31 younger mom    38 full term     16     married     20   4.75
+303   NA   23 younger mom    40 full term     11     married     12   7.00
+841   32   34 younger mom    37 full term     10 not married     25   7.25
+678   34   30 younger mom    38 full term      5 not married     17   6.00
+338   26   23 younger mom    35    premie     14 not married     23   7.25
+350   27   24 younger mom    40 full term     15 not married     58   9.00
+823   34   34 younger mom    41 full term     15 not married     33   7.13
+658   33   30 younger mom    39 full term     10 not married     28   7.63
+107   NA   19 younger mom    36    premie      9     married      5   6.31
+752   31   32 younger mom    38 full term      6 not married     27   6.75
+543   28   27 younger mom    33    premie      6 not married     18   4.75
+518   31   27 younger mom    37 full term     14 not married     48   5.75
+775   32   32 younger mom    26    premie      8 not married     35   1.50
+977   46   39  mature mom    38 full term     10     married     35   6.75
+43    25   18 younger mom    40 full term      6 not married     20   6.19
+189   22   21 younger mom    38 full term     14     married     36   6.38
+171   NA   20 younger mom    36    premie     15     married     20   7.63
+39    28   18 younger mom    38 full term     15     married     30   6.00
+216   21   21 younger mom    37 full term     15     married     20   5.06
+747   29   32 younger mom    38 full term     20 not married     25   5.81
+291   26   23 younger mom    42 full term     14 not married     23   6.75
+58    20   18 younger mom    38 full term     14 not married     56   5.88
+395   26   25 younger mom    39 full term     16 not married      0   6.94
+979   40   40  mature mom    38 full term     13 not married     38   7.31
+737   NA   31 younger mom    36    premie     12     married     34   5.25
+456   25   26 younger mom    39 full term     12 not married     40   8.38
+22    20   17 younger mom    40 full term     17     married     38   7.19
+170   19   20 younger mom    33    premie      0 not married     23   6.38
+588   25   28 younger mom    38 full term     10 not married     40   7.94
+63    NA   18 younger mom    39 full term      0     married     15   6.88
+774   42   32 younger mom    26    premie     13 not married     36   1.44
+804   33   33 younger mom    39 full term     30 not married      0   7.31
+417   27   25 younger mom    40 full term     11 not married     26   7.44
+903   37   36  mature mom    41 full term      4     married     10   8.88
+70    24   18 younger mom    37 full term      8     married     25   6.19
+59    18   18 younger mom    39 full term     11     married     60   6.63
+915   33   36  mature mom    38 full term     11 not married     20   7.00
+484   25   26 younger mom    38 full term      9 not married     43   7.31
+203   23   21 younger mom    39 full term     10     married     55   8.06
+227   28   21 younger mom    35    premie      9 not married     15   5.50
+243   24   22 younger mom    37 full term     10     married     17   7.19
+413   27   25 younger mom    40 full term     14 not married     47   8.75
+577   28   28 younger mom    40 full term     15 not married     32   7.75
+542   33   27 younger mom    36    premie     11     married     14   5.56
+476   32   26 younger mom    40 full term     12     married     40   7.44
+768   27   32 younger mom    39 full term     12 not married     27   6.69
+920   37   36  mature mom    38 full term     12 not married     43   9.13
+405   24   25 younger mom    40 full term     15     married     36   7.94
+397   NA   25 younger mom    40 full term     15     married     38   8.25
+716   34   31 younger mom    41 full term      7 not married     14   7.13
+607   30   29 younger mom    38 full term     12 not married     25   8.44
+501   28   27 younger mom    39 full term     13     married     61   7.44
+429   27   25 younger mom    40 full term     15 not married     32   8.38
+205   NA   21 younger mom    41 full term     10     married     40   9.06
+475   NA   26 younger mom    41 full term     20     married     20   7.44
+104   NA   19 younger mom    34    premie      0     married     20   5.88
+210   25   21 younger mom    38 full term     14 not married      0   7.69
+471   32   26 younger mom    41 full term     14     married     19   6.56
+671   35   30 younger mom    43 full term     12 not married     30   7.63
+66    24   18 younger mom    40 full term     14 not married     47   7.06
+88    20   19 younger mom    38 full term     17     married     51   6.75
+944   36   37  mature mom    44 full term     10 not married     25   8.94
+601   30   29 younger mom    41 full term     14 not married     30   7.69
+309   NA   23 younger mom    38 full term     10     married      0   6.88
+896   32   35  mature mom    35    premie     12     married     13   6.50
+294   25   23 younger mom    41 full term     15 not married     30   9.88
+421   34   25 younger mom    38 full term      6 not married     50   6.88
+715   36   31 younger mom    37 full term     13 not married     34   9.50
+877   36   35  mature mom    40 full term     12 not married     29   8.88
+430   30   25 younger mom    40 full term     15 not married     13   9.00
+512   33   27 younger mom    39 full term      9     married     40   9.06
+361   29   24 younger mom    44 full term     18 not married     30   6.25
+885   41   35  mature mom    39 full term     18     married     20   8.94
+480   NA   26 younger mom    37 full term     16     married     22   6.56
+15    21   16 younger mom    38 full term     15     married     75   7.56
+486   42   26 younger mom    40 full term      8 not married     38   7.13
+254   26   22 younger mom    39 full term     11 not married     35   9.00
+491   27   26 younger mom    31    premie     20     married     10   2.25
+976   NA   39  mature mom    38 full term     16     married     25   6.06
+178   35   21 younger mom    38 full term      7 not married     40   8.38
+428   NA   25 younger mom    37 full term     20 not married     20   5.63
+793   27   33 younger mom    38 full term     12 not married     17   6.88
+955   NA   37  mature mom    39 full term      5     married     20   8.19
+677   29   30 younger mom    39 full term     15 not married     44   6.38
+194   24   21 younger mom    41 full term     13 not married     40   7.88
+599   31   29 younger mom    39 full term     10 not married     26   8.94
+917   30   36  mature mom    39 full term     20 not married     23   8.19
+378   28   24 younger mom    40 full term     12 not married     29   7.06
+735   32   31 younger mom    36    premie     13 not married     20   6.00
+155   38   20 younger mom    37 full term      5     married     19   8.31
+166   NA   20 younger mom    39 full term     15     married     70   7.38
+207   26   21 younger mom    38 full term      9     married     23   8.13
+468   27   26 younger mom    40 full term     15 not married     24   8.88
+105   NA   19 younger mom    22    premie      5     married     20   1.38
+482   26   26 younger mom    42 full term     15 not married     36   7.69
+587   NA   28 younger mom    41 full term     11     married     14   7.00
+280   NA   22 younger mom    39 full term     13     married     38   7.13
+440   33   25 younger mom    35    premie     15 not married     18   6.75
+389   29   24 younger mom    34    premie     12 not married     31   7.50
+499   26   27 younger mom    39 full term      8 not married     20   6.63
+251   NA   22 younger mom    37 full term      8     married     23   7.69
+231   28   22 younger mom    40 full term     12 not married     24   6.75
+564   30   28 younger mom    39 full term     12 not married     20   7.94
+938   41   37  mature mom    38 full term     12 not married     70   8.75
+827   37   34 younger mom    37 full term     15 not married     75   6.69
+463   27   26 younger mom    39 full term     16 not married     38   8.00
+100   NA   19 younger mom    39 full term      7     married      0   7.31
+834   33   34 younger mom    38 full term     11 not married     40   6.88
+141   NA   20 younger mom    37 full term      2     married     NA   6.38
+961   39   38  mature mom    39 full term     16 not married     30   7.00
+692   28   31 younger mom    39 full term     12 not married     NA   9.19
+36    18   17 younger mom    35    premie     12     married     25   7.25
+626   29   29 younger mom    44 full term     12 not married     51   8.50
+906   39   36  mature mom    41 full term      4 not married     13   7.56
+362   32   24 younger mom    37 full term     12 not married     28   8.50
+86    19   19 younger mom    38 full term      6     married     40   6.94
+138   20   20 younger mom    37 full term     12 not married     22   5.94
+344   28   24 younger mom    38 full term      7     married     10   7.81
+211   22   21 younger mom    38 full term     16 not married     30   7.69
+461   30   26 younger mom    41 full term     13 not married     29   7.75
+681   30   30 younger mom    36    premie     14 not married     30   4.19
+682   NA   30 younger mom    36    premie     11     married     21   7.06
+898   31   35  mature mom    36    premie     12 not married     24   8.69
+947   38   37  mature mom    39 full term     10 not married     10   7.00
+758   31   32 younger mom    39 full term     14 not married     20   9.19
+967   40   38  mature mom    41 full term     14 not married     20   7.25
+750   35   32 younger mom    40 full term     14 not married     26   8.50
+611   31   29 younger mom    38 full term     14 not married     39   7.94
+972   41   39  mature mom    39 full term     11 not married     30   8.06
+371   NA   24 younger mom    38 full term     12     married      0   7.06
+380   NA   24 younger mom    39 full term      6     married     30   6.13
+97    NA   19 younger mom    38 full term      3     married     36   6.75
+49    20   18 younger mom    40 full term     11     married     28   6.63
+469   28   26 younger mom    40 full term     13     married     35   8.06
+260   22   22 younger mom    39 full term     14 not married     29   7.19
+654   31   30 younger mom    39 full term     12 not married     22   6.75
+782   NA   33 younger mom    37 full term      9     married     35   7.94
+174   NA   20 younger mom    36    premie     10     married     32   6.13
+982   41   40  mature mom    43 full term     12 not married     27   8.13
+554   30   28 younger mom    39 full term     13     married      0   7.50
+881   33   35  mature mom    40 full term     14 not married     35   7.88
+183   24   21 younger mom    40 full term     10 not married     25   7.44
+347   NA   24 younger mom    39 full term      9     married     15   7.31
+74    21   18 younger mom    36    premie      8     married     10   5.50
+777   23   32 younger mom    36    premie     18 not married     10   4.44
+987   46   40  mature mom    35    premie     14 not married     NA   6.69
+118   NA   20 younger mom    39 full term     16     married     19   5.44
+271   23   22 younger mom    37 full term     15 not married     20   7.81
+551   28   28 younger mom    40 full term     15 not married     45   9.25
+738   32   31 younger mom    33    premie     16 not married     55   4.75
+357   29   24 younger mom    38 full term     15 not married     20   7.44
+252   28   22 younger mom    41 full term     15 not married      9  10.19
+712   NA   31 younger mom    38 full term     10     married     35   6.63
+652   29   30 younger mom    42 full term     12 not married     29   8.19
+459   28   26 younger mom    40 full term     13     married     38   7.13
+61    NA   18 younger mom    40 full term     12     married     13   8.75
+566   35   28 younger mom    39 full term     12 not married     19   7.06
+179   24   21 younger mom    39 full term     14     married      2   6.81
+272   27   22 younger mom    38 full term     20     married     19   6.63
+76    NA   19 younger mom    39 full term     10     married     22   7.88
+87    24   19 younger mom    40 full term     12     married     36   8.19
+224   NA   21 younger mom    36    premie      3     married     16   5.94
+842   33   34 younger mom    40 full term     13 not married     25   8.25
+164   28   20 younger mom    42 full term     30     married     23   7.44
+13    NA   16 younger mom    40 full term      4     married     12   6.00
+526   35   27 younger mom    38 full term     14 not married     22   8.25
+956   41   37  mature mom    35    premie     15 not married     40   4.94
+795   31   33 younger mom    38 full term     10 not married     24   6.69
+576   35   28 younger mom    38 full term     10 not married     25   6.88
+545   28   28 younger mom    44 full term     17 not married     32   6.75
+334   26   23 younger mom    36    premie     18 not married     20   6.69
+95    21   19 younger mom    41 full term     13     married     38   8.38
+755   44   32 younger mom    40 full term     10 not married     10   6.69
+269   29   22 younger mom    42 full term     16 not married     36   7.31
+53    25   18 younger mom    42 full term     11     married     35   7.81
+367   28   24 younger mom    39 full term     11     married     NA   7.50
+420   27   25 younger mom    39 full term     15 not married     31   7.56
+54    20   18 younger mom    41 full term      9     married     18   7.00
+383   32   24 younger mom    39 full term      8 not married     23   6.88
+657   31   30 younger mom    39 full term     15 not married     47   9.75
+274   27   22 younger mom    39 full term     12 not married     30   6.94
+882   32   35  mature mom    38 full term     17 not married     55   7.50
+168   NA   20 younger mom    35    premie     20 not married     35   6.94
+693   26   31 younger mom    41 full term     12 not married     54   9.19
+630   34   29 younger mom    37 full term     12     married     NA   6.81
+191   23   21 younger mom    40 full term     15 not married     38   7.63
+791   36   33 younger mom    39 full term     12 not married      0   8.81
+992   40   41  mature mom    39 full term     12 not married     20   7.56
+771   35   32 younger mom    33    premie     14 not married     30   4.63
+530   NA   27 younger mom    38 full term     12     married     40   6.25
+67    20   18 younger mom    38 full term     15     married     50   8.06
+679   36   30 younger mom    38 full term     12 not married     19   6.50
+969   26   38  mature mom    20    premie      5     married     30   1.38
+277   NA   22 younger mom    40 full term     18     married     54   6.38
+946   36   37  mature mom    40 full term     15 not married     17   7.25
+34    17   17 younger mom    29    premie      4     married     10   2.63
+504   27   27 younger mom    37 full term     13 not married     38   5.63
+562   24   28 younger mom    39 full term     12     married     43   7.25
+673   31   30 younger mom    39 full term     13 not married     50   7.56
+648   24   29 younger mom    35    premie     10     married     40   5.94
+711   35   31 younger mom    37 full term     12 not married     37   8.06
+821   37   33 younger mom    36    premie     13 not married     23   6.56
+531   34   27 younger mom    39 full term     16 not married     24   8.88
+796   34   33 younger mom    38 full term     18 not married      6   7.06
+127   25   20 younger mom    39 full term      8     married     23   6.69
+31    NA   17 younger mom    42 full term      8     married     72   7.44
+547   NA   28 younger mom    40 full term      5     married     31   7.81
+907   41   36  mature mom    38 full term      6 not married     47   9.19
+724   32   31 younger mom    37 full term     12 not married     29   6.50
+308   31   23 younger mom    43 full term     12 not married      8   8.44
+580   33   28 younger mom    41 full term     10 not married     30   8.13
+924   32   36  mature mom    39 full term     14 not married      2   8.00
+808   31   33 younger mom    39 full term     NA     married     40   7.88
+11    30   16 younger mom    45 full term      9     married     28   7.44
+149   28   20 younger mom    38 full term      7     married     52   6.75
+980   34   40  mature mom    41 full term      8     married     29   9.88
+349   27   24 younger mom    40 full term     11 not married      8   7.69
+845   40   34 younger mom    37 full term      5 not married     25   7.75
+745   33   32 younger mom    41 full term     12 not married     20   7.38
+717   32   31 younger mom    38 full term     10 not married     33   8.81
+651   33   30 younger mom    37 full term     10 not married     57   6.56
+859   30   34 younger mom    41 full term     14 not married     40   7.88
+943   37   37  mature mom    40 full term     10 not married     35   8.50
+929   37   36  mature mom    39 full term      5     married     25   5.38
+235   25   22 younger mom    39 full term     14 not married     11   6.88
+936   35   37  mature mom    40 full term     13 not married     23   6.19
+487   22   26 younger mom    39 full term     12 not married     31   7.31
+120   20   20 younger mom    40 full term     15     married     46   8.38
+346   45   24 younger mom    37 full term     15 not married     40   8.19
+439   NA   25 younger mom    40 full term      8     married     23   6.50
+199   25   21 younger mom    39 full term      8     married     32   8.06
+165   NA   20 younger mom    40 full term     17     married     39   9.06
+198   21   21 younger mom    38 full term     10 not married     35   6.50
+637   34   29 younger mom    40 full term     10 not married     20   6.81
+152   NA   20 younger mom    39 full term     13     married     25   6.25
+454   30   26 younger mom    39 full term     15 not married     35   7.56
+372   NA   24 younger mom    39 full term     20     married     26   7.19
+285   25   22 younger mom    34    premie     13 not married     35   5.88
+535   27   27 younger mom    39 full term     11 not married      5   7.81
+399   24   25 younger mom    37 full term     15     married     20   6.31
+1     NA   13 younger mom    39 full term     10     married     38   7.63
+241   26   22 younger mom    41 full term     18     married      1   7.50
+922   39   36  mature mom    38 full term     11 not married      7   7.00
+921   36   36  mature mom    39 full term     11 not married     25   7.81
+557   33   28 younger mom    39 full term     10     married     39   7.31
+348   26   24 younger mom    39 full term     14 not married     36   7.63
+201   18   21 younger mom    40 full term     15     married     37   8.19
+878   34   35  mature mom    39 full term     10 not married     34   8.25
+419   24   25 younger mom    42 full term     18     married     33   8.06
+880   37   35  mature mom    40 full term     16 not married     32   7.31
+25    26   17 younger mom    38 full term     11     married     30   9.50
+341   21   24 younger mom    40 full term     18 not married     35   7.13
+514   28   27 younger mom    40 full term     12     married     21   7.06
+161   24   20 younger mom    39 full term     12 not married     55   5.25
+75    NA   18 younger mom    33    premie      7     married     40   1.69
+135   21   20 younger mom    38 full term     10     married     40   8.81
+563   33   28 younger mom    39 full term     14 not married     33   8.56
+565   23   28 younger mom    40 full term     11     married     20   8.13
+763   36   32 younger mom    37 full term     10 not married     48   8.81
+733   30   31 younger mom    26    premie      8 not married      7   1.31
+631   26   29 younger mom    37 full term     12     married     12   6.31
+916   42   36  mature mom    39 full term     12 not married     11   8.56
+640   33   29 younger mom    39 full term     11     married     45   8.69
+206   NA   21 younger mom    39 full term     20 not married     30   7.13
+192   NA   21 younger mom    41 full term     12     married     32   8.38
+836   35   34 younger mom    45 full term     10 not married     34   8.50
+237   26   22 younger mom    40 full term     14 not married     32   7.50
+894   33   35  mature mom    38 full term     10 not married     20   6.44
+286   31   22 younger mom    30    premie     10     married     25   2.69
+143   22   20 younger mom    43 full term     10 not married     10   6.88
+616   34   29 younger mom    38 full term     16 not married     35   6.19
+892   32   35  mature mom    38 full term      8 not married     10   7.13
+632   22   29 younger mom    39 full term     17 not married     25   9.75
+604   45   29 younger mom    39 full term     11 not married     30   9.81
+852   31   34 younger mom    42 full term     20 not married     40   6.75
+814   32   33 younger mom    40 full term     13 not married     77   9.63
+321   NA   23 younger mom    44 full term      4     married     55   8.13
+579   28   28 younger mom    40 full term     12 not married     20   7.75
+999   45   50  mature mom    39 full term     14 not married     23   7.13
+586   26   28 younger mom    39 full term     16 not married     18   7.44
+886   35   35  mature mom    39 full term     13 not married     30   7.69
+462   29   26 younger mom    40 full term     12 not married     38   8.44
+128   21   20 younger mom    38 full term     14 not married     20   7.50
+603   27   29 younger mom    39 full term     10 not married     20   7.13
+612   28   29 younger mom    39 full term     12 not married     30   7.00
+935   37   37  mature mom    41 full term     17 not married     45   9.88
+51    21   18 younger mom    40 full term     12     married     NA   7.25
+689   38   31 younger mom    37 full term     11 not married     45   8.00
+672   29   30 younger mom    38 full term     14 not married     30   8.38
+295   26   23 younger mom    38 full term     15 not married     29   6.88
+477   23   26 younger mom    40 full term      4     married     15   6.75
+222   NA   21 younger mom    36    premie     15     married     10   6.81
+352   NA   24 younger mom    42 full term      7     married     30   7.13
+376   28   24 younger mom    38 full term     12 not married     28   7.25
+85    23   19 younger mom    37 full term     18 not married     46   6.06
+923   35   36  mature mom    38 full term     18 not married     37   8.25
+502   30   27 younger mom    39 full term     13 not married     50   6.25
+596   30   28 younger mom    31    premie      8     married     30   3.31
+150   NA   20 younger mom    38 full term     12     married     45   8.06
+159   33   20 younger mom    39 full term     15     married     41   8.25
+289   41   23 younger mom    38 full term      3 not married     11   8.88
+730   NA   31 younger mom    40 full term     14     married     56   6.00
+546   36   28 younger mom    39 full term     15 not married     40   8.38
+700   NA   31 younger mom    38 full term     20     married      3   6.56
+299   28   23 younger mom    39 full term     14 not married     36   5.88
+966   44   38  mature mom    41 full term     15 not married     37   7.75
+867   34   34 younger mom    28    premie     20 not married     21   2.88
+762   35   32 younger mom    37 full term     11 not married     25   6.19
+374   34   24 younger mom    37 full term     12 not married     20   7.81
+391   NA   24 younger mom    34    premie      7     married     18   5.06
+331   23   23 younger mom    36    premie     18     married     30   8.56
+204   25   21 younger mom    40 full term     16 not married     26   6.88
+396   30   25 younger mom    40 full term     12 not married     35   8.13
+57    18   18 younger mom    40 full term     NA     married     32   6.56
+835   35   34 younger mom    40 full term     13 not married     36   8.50
+354   27   24 younger mom    39 full term      2     married     10   6.50
+29    31   17 younger mom    39 full term     12     married     27   7.56
+377   19   24 younger mom    40 full term     11     married     70   8.50
+662   32   30 younger mom    37 full term     14 not married     45   7.31
+55    21   18 younger mom    37 full term     15     married     23   7.31
+962   44   38  mature mom    38 full term     14 not married     65   6.25
+829   38   34 younger mom    38 full term     13 not married     32   8.50
+279   25   22 younger mom    39 full term     12 not married     27   6.31
+570   29   28 younger mom    37 full term      5     married     35   6.44
+190   20   21 younger mom    43 full term     15 not married     17   7.19
+493   25   26 younger mom    33    premie     10 not married     13   3.44
+132   24   20 younger mom    41 full term     15     married     60   7.44
+680   NA   30 younger mom    36    premie      8     married     30   7.25
+263   30   22 younger mom    39 full term      8     married     20   8.00
+866   NA   34 younger mom    33    premie     17     married     14   3.81
+871   34   35  mature mom    39 full term     14 not married     30   6.94
+340   26   24 younger mom    38 full term      9 not married     35   5.94
+792   36   33 younger mom    38 full term     10 not married     20   6.00
+618   NA   29 younger mom    39 full term     18 not married     25   6.50
+238   31   22 younger mom    41 full term     12 not married     20   8.44
+329   NA   23 younger mom    32    premie     13     married     28   6.25
+229   24   22 younger mom    42 full term      7     married     21   6.50
+914   39   36  mature mom    37 full term     10 not married     20   6.88
+655   31   30 younger mom    37 full term     10     married     27   8.13
+809   34   33 younger mom    39 full term     12 not married      0   8.31
+537   33   27 younger mom    41 full term     15 not married     38   7.00
+223   21   21 younger mom    29    premie      4     married     13   2.50
+656   34   30 younger mom    39 full term     12 not married     25   5.81
+910   40   36  mature mom    38 full term     26 not married     20   7.19
+187   22   21 younger mom    40 full term     15     married     22   6.94
+121   22   20 younger mom    38 full term     14     married     24   7.19
+23    20   17 younger mom    39 full term      9     married     36   6.00
+862   38   34 younger mom    39 full term      9 not married     34   7.94
+769   NA   32 younger mom    37 full term      8     married     30   6.81
+536   30   27 younger mom    39 full term     15 not married     22   8.38
+500   28   27 younger mom    40 full term     14 not married     36   6.75
+625   29   29 younger mom    37 full term     18 not married     30   6.31
+407   26   25 younger mom    39 full term      9 not married     25   6.75
+176   22   20 younger mom    32    premie      5     married     40   2.69
+818   48   33 younger mom    40 full term     11 not married      0   8.19
+957   38   37  mature mom    35    premie     20 not married     37   5.94
+523   33   27 younger mom    40 full term     NA     married     10   8.00
+940   42   37  mature mom    41 full term     16 not married     38   7.00
+932   36   36  mature mom    30    premie     10 not married     65   4.00
+520   NA   27 younger mom    41 full term     10     married     20   6.69
+995   47   42  mature mom    40 full term     10 not married     26   8.44
+133   NA   20 younger mom    39 full term     16     married     18   7.44
+2     NA   14 younger mom    42 full term     15     married     20   7.88
+756   34   32 younger mom    38 full term     10 not married     29   9.50
+38    NA   18 younger mom    42 full term     15     married     27   7.44
+609   31   29 younger mom    39 full term     11 not married     17   8.50
+913   33   36  mature mom    39 full term     15 not married     20   6.06
+292   31   23 younger mom    44 full term     14     married     40   6.81
+719   35   31 younger mom    40 full term     15 not married     32   6.25
+951   34   37  mature mom    41 full term     16 not married     36   8.31
+443   NA   25 younger mom    35    premie      0     married     20   6.13
+366   22   24 younger mom    39 full term     10 not married     35   5.94
+412   35   25 younger mom    37 full term     30 not married     60   3.94
+911   37   36  mature mom    44 full term     12 not married     35   6.75
+21    NA   17 younger mom    39 full term     10     married     40   7.00
+422   32   25 younger mom    41 full term     14 not married     32   7.75
+112   21   20 younger mom    40 full term      9 not married     30   7.31
+489   29   26 younger mom    39 full term     14 not married     65   7.75
+124   20   20 younger mom    40 full term      3 not married     18   7.19
+356   NA   24 younger mom    38 full term     16 not married     50   3.75
+437   21   25 younger mom    39 full term     15     married     30   9.06
+91    20   19 younger mom    41 full term     15     married     25   8.31
+259   NA   22 younger mom    40 full term      7     married     25   7.38
+998   55   46  mature mom    31    premie      8 not married     25   4.56
+453   29   26 younger mom    39 full term     15 not married     27   7.13
+336   26   23 younger mom    36    premie     12 not married     30   6.44
+593   37   28 younger mom    36    premie     14     married     35   7.31
+35    19   17 younger mom    35    premie      3     married     30   6.38
+17    14   16 younger mom    40 full term     12     married      9   5.81
+941   37   37  mature mom    38 full term     18     married     29   6.69
+954   NA   37  mature mom    38 full term      3     married     NA   7.50
+306   22   23 younger mom    38 full term     10 not married     20   8.44
+688   34   31 younger mom    39 full term     15 not married     22   8.69
+930   34   36  mature mom    38 full term      4     married     25   6.88
+32    19   17 younger mom    36    premie     15     married     25   7.00
+704   34   31 younger mom    40 full term     14 not married     44   7.50
+446   27   26 younger mom    38 full term     14 not married     32   6.88
+452   28   26 younger mom    39 full term     15 not married     25   6.94
+304   28   23 younger mom    40 full term     12     married     13   5.38
+225   21   21 younger mom    35    premie     15 not married     31   7.56
+226   NA   21 younger mom    35    premie      8 not married     40   4.63
+311   26   23 younger mom    40 full term     14 not married     28   8.38
+619   30   29 younger mom    38 full term     17 not married     55   7.00
+872   39   35  mature mom    39 full term     16 not married     52   8.81
+926   34   36  mature mom    39 full term      5 not married     35   7.69
+481   32   26 younger mom    40 full term     15 not married     55   7.00
+839   33   34 younger mom    39 full term     10 not married     40   6.44
+278   21   22 younger mom    39 full term      9 not married     50   8.38
+939   44   37  mature mom    39 full term     12 not married     20   9.31
+837   37   34 younger mom    37 full term     18 not married      0   4.75
+275   24   22 younger mom    39 full term     11 not married     27   6.00
+686   31   30 younger mom    36    premie     14 not married     NA   5.50
+447   28   26 younger mom    39 full term     15 not married     45   7.19
+267   21   22 younger mom    40 full term     18 not married     30   8.44
+749   36   32 younger mom    38 full term     10 not married     22   6.25
+385   NA   24 younger mom    38 full term      5     married     NA   7.13
+264   23   22 younger mom    37 full term     10 not married     30   6.38
+110   26   19 younger mom    36    premie     12     married     24   6.19
+509   31   27 younger mom    40 full term     13     married      3   7.06
+591   33   28 younger mom    35    premie     14 not married     25   6.25
+42    NA   18 younger mom    41 full term      6     married     41   7.88
+245   23   22 younger mom    43 full term     15 not married     26   7.44
+765   36   32 younger mom    40 full term     15 not married     16   7.38
+893   36   35  mature mom    39 full term     10 not married      0   7.94
+423   29   25 younger mom    39 full term     10 not married     29   7.63
+788   33   33 younger mom    39 full term     14 not married      0   7.38
+94    32   19 younger mom    43 full term      2     married     27   5.38
+988   48   41  mature mom    41 full term     15 not married     28   6.38
+568   34   28 younger mom    37 full term     11 not married     18   5.81
+532   39   27 younger mom    39 full term     12 not married     58   8.56
+669   34   30 younger mom    38 full term     16 not married     30   7.50
+606   28   29 younger mom    41 full term     15 not married     50   8.31
+373   28   24 younger mom    38 full term     15 not married     21   6.94
+550   25   28 younger mom    39 full term     12 not married     47   7.38
+705   38   31 younger mom    37 full term     11 not married     34   6.31
+253   28   22 younger mom    38 full term      6     married     45   7.25
+177   22   21 younger mom    38 full term     12 not married     47   7.75
+364   24   24 younger mom    38 full term     17     married     13   6.56
+584   31   28 younger mom    38 full term     15 not married     25   6.38
+773   45   32 younger mom    35    premie     14 not married     29   4.44
+732   37   31 younger mom    39 full term     14 not married     55   8.13
+676   31   30 younger mom    39 full term     13 not married      1   6.88
+772   32   32 younger mom    33    premie      9 not married     22   5.56
+728   34   31 younger mom    40 full term     16 not married     37   7.19
+14    NA   16 younger mom    38 full term     12     married     30   7.13
+472   29   26 younger mom    41 full term      8     married     39   8.19
+761   35   32 younger mom    39 full term     12 not married     22   8.88
+853   34   34 younger mom    37 full term     17 not married     35   6.88
+3     19   15 younger mom    37 full term     11     married     38   6.63
+122   24   20 younger mom    41 full term     16     married     35   7.19
+964   NA   38  mature mom    38 full term     15 not married     13   8.38
+668   29   30 younger mom    39 full term     10 not married     43   6.88
+48    24   18 younger mom    40 full term     15 not married     57   8.00
+448   28   26 younger mom    40 full term     14     married     21   5.94
+664   41   30 younger mom    40 full term     14 not married     35   8.44
+7     18   15 younger mom    37 full term     12     married     76   8.44
+268   22   22 younger mom    40 full term     14     married     23   7.31
+339   43   24 younger mom    38 full term     16     married     30   8.19
+28    20   17 younger mom    40 full term     10     married     68   7.44
+942   38   37  mature mom    40 full term     14 not married     35   8.63
+725   28   31 younger mom    40 full term      6 not married     30   7.00
+516   36   27 younger mom    40 full term     11     married     18   7.75
+684   32   30 younger mom    31    premie      8 not married     NA   2.94
+392   24   25 younger mom    41 full term     14     married     30   7.38
+37    18   17 younger mom    31    premie      6     married      1   1.56
+106   27   19 younger mom    32    premie      5 not married     32   6.50
+889   34   35  mature mom    39 full term     12 not married     30   7.56
+644   36   29 younger mom    22    premie     NA not married     15   1.00
+27    NA   17 younger mom    39 full term     12     married     50   7.50
+874   NA   35  mature mom    39 full term      3     married     10   8.13
+739   29   31 younger mom    36    premie      8 not married     42   5.94
+394   NA   25 younger mom    38 full term     11     married     27   8.75
+753   34   32 younger mom    37 full term     11 not married     28   5.56
+525   44   27 younger mom    40 full term     10     married     24   9.63
+718   35   31 younger mom    39 full term     12 not married     25   7.88
+754   31   32 younger mom    37 full term     12     married     22   6.00
+240   27   22 younger mom    39 full term     11 not married     35   9.00
+815   38   33 younger mom    40 full term     15 not married     45  10.06
+925   40   36  mature mom    39 full term      9 not married     NA  10.25
+742   33   32 younger mom    39 full term     12 not married     30   6.13
+402   NA   25 younger mom    38 full term     17 not married     38   7.06
+549   NA   28 younger mom    39 full term     16     married     35   8.06
+567   46   28 younger mom    39 full term     14 not married     24   6.44
+702   35   31 younger mom    39 full term     15 not married     35   7.44
+590   32   28 younger mom    29    premie     18 not married     40   3.56
+981   43   40  mature mom    41 full term     11 not married     25   9.19
+868   38   35  mature mom    38 full term     16 not married      2  10.13
+610   30   29 younger mom    38 full term     14 not married     36   7.88
+647   NA   29 younger mom    34    premie      6     married     25   4.88
+555   33   28 younger mom    37 full term     NA     married     72   8.00
+153   NA   20 younger mom    40 full term      7     married     25   7.06
+653   33   30 younger mom    44 full term     15     married     40   8.63
+82    22   19 younger mom    38 full term     15     married     30   7.69
+353   30   24 younger mom    39 full term     11     married     41   8.75
+283   27   22 younger mom    35    premie     12 not married     30   4.69
+411   31   25 younger mom    41 full term     14 not married     27   7.38
+785   32   33 younger mom    37 full term     13 not married     15   3.94
+983   41   40  mature mom    40 full term     13 not married     30   9.00
+119   21   20 younger mom    37 full term     10     married     18   6.75
+6     NA   15 younger mom    38 full term     19     married     22   5.38
+425   24   25 younger mom    38 full term     22 not married     35   8.31
+    gender     habit  whitemom
+284   male nonsmoker     white
+848   male nonsmoker     white
+918 female nonsmoker     white
+101   male    smoker not white
+623 female nonsmoker     white
+905   male nonsmoker     white
+645   male nonsmoker not white
+934   male nonsmoker     white
+400 female nonsmoker     white
+900   male nonsmoker     white
+98    male    smoker     white
+103   male nonsmoker not white
+726   male nonsmoker     white
+602   male nonsmoker     white
+326 female nonsmoker not white
+79    male nonsmoker not white
+974 female nonsmoker     white
+884   male nonsmoker     white
+270   male    smoker     white
+382   male    smoker     white
+184   male nonsmoker     white
+574   male nonsmoker     white
+4     male nonsmoker     white
+990 female nonsmoker not white
+661 female nonsmoker     white
+552 female nonsmoker     white
+212 female    smoker     white
+952 female nonsmoker     white
+195 female nonsmoker not white
+511   male nonsmoker not white
+479 female nonsmoker     white
+605 female nonsmoker not white
+634   male nonsmoker not white
+901   male nonsmoker     white
+578 female nonsmoker     white
+510   male nonsmoker     white
+687   male    smoker     white
+424   male nonsmoker     white
+379   male    smoker not white
+816   male nonsmoker     white
+108 female nonsmoker not white
+131 female nonsmoker     white
+343   male nonsmoker     white
+41  female nonsmoker not white
+627 female nonsmoker     white
+740   male nonsmoker     white
+840 female nonsmoker     white
+928   male    smoker not white
+298 female nonsmoker     white
+811   male nonsmoker     white
+258 female nonsmoker     white
+629   male nonsmoker     white
+984 female nonsmoker not white
+182 female nonsmoker     white
+305   male nonsmoker not white
+358   male nonsmoker     white
+696   male nonsmoker     white
+307   male nonsmoker     white
+902 female nonsmoker     white
+945   male nonsmoker not white
+221 female nonsmoker     white
+736 female nonsmoker     white
+561   male nonsmoker     white
+313 female nonsmoker     white
+136   male nonsmoker     white
+794   male nonsmoker     white
+145   male nonsmoker not white
+123 female nonsmoker not white
+776   male nonsmoker     white
+234   male nonsmoker     white
+608   male nonsmoker     white
+495   male nonsmoker not white
+534 female    smoker     white
+803   male nonsmoker     white
+297 female nonsmoker     white
+208 female nonsmoker     white
+958   male nonsmoker     white
+854   male nonsmoker     white
+569 female nonsmoker     white
+522 female nonsmoker     white
+997 female nonsmoker     white
+248 female nonsmoker not white
+365 female nonsmoker     white
+665   male nonsmoker     white
+643 female nonsmoker     white
+595   male    smoker     white
+434 female    smoker     white
+757   male nonsmoker     white
+760 female nonsmoker not white
+218   male nonsmoker not white
+727 female nonsmoker     white
+838   male nonsmoker     white
+508   male nonsmoker     white
+276   male    smoker     white
+169   male nonsmoker not white
+71  female nonsmoker     white
+573 female nonsmoker     white
+864   male nonsmoker     white
+985   male nonsmoker     white
+895   male    smoker     white
+485   male    smoker     white
+667   male nonsmoker     white
+460 female nonsmoker     white
+953   male nonsmoker     white
+960   male nonsmoker     white
+60    male nonsmoker not white
+449   male nonsmoker     white
+548   male nonsmoker     white
+887 female nonsmoker     white
+19  female nonsmoker     white
+649 female nonsmoker     white
+638   male    smoker not white
+670 female nonsmoker not white
+319 female nonsmoker     white
+116 female nonsmoker not white
+933 female nonsmoker     white
+102   male    smoker     white
+214   male    smoker     white
+826 female nonsmoker     white
+390 female nonsmoker     white
+597   male nonsmoker     white
+879   male nonsmoker     white
+160 female    smoker not white
+77    male nonsmoker     white
+529 female    smoker not white
+126   male nonsmoker     white
+262   male nonsmoker not white
+442   male nonsmoker not white
+642   male nonsmoker     white
+181   male nonsmoker     white
+779   male nonsmoker     white
+828   male nonsmoker not white
+163 female    smoker     white
+474   male nonsmoker not white
+228 female nonsmoker not white
+789   male nonsmoker     white
+883 female nonsmoker     white
+646 female nonsmoker not white
+265 female nonsmoker     white
+427 female nonsmoker     white
+890 female nonsmoker     white
+249   male nonsmoker     white
+927 female nonsmoker     white
+40  female nonsmoker not white
+541   male nonsmoker     white
+497   male nonsmoker     white
+697   male nonsmoker     white
+991   male nonsmoker     white
+450   male nonsmoker     white
+806   male nonsmoker     white
+600   male nonsmoker not white
+891 female nonsmoker     white
+363   male nonsmoker not white
+908 female nonsmoker     white
+478 female nonsmoker     white
+403   male nonsmoker     white
+375 female nonsmoker     white
+335 female nonsmoker not white
+598 female nonsmoker     white
+142 female nonsmoker     white
+444   male    smoker     white
+844   male nonsmoker     white
+659   male nonsmoker     white
+904 female nonsmoker     white
+457 female nonsmoker not white
+188   male nonsmoker     white
+432   male nonsmoker     white
+488   male    smoker     white
+538 female nonsmoker     white
+857 female nonsmoker     white
+215   male    smoker     white
+540 female nonsmoker     white
+613 female nonsmoker     white
+833   male nonsmoker     white
+296 female nonsmoker     white
+328 female nonsmoker     white
+147 female nonsmoker     white
+701 female nonsmoker     white
+708   male nonsmoker     white
+84  female nonsmoker not white
+83    male nonsmoker not white
+250   male nonsmoker     white
+875   male nonsmoker     white
+281   male    smoker     white
+675 female    smoker     white
+963 female nonsmoker not white
+431 female nonsmoker     white
+30    male nonsmoker not white
+10  female nonsmoker     white
+830 female nonsmoker     white
+441   male nonsmoker     white
+937 female nonsmoker not white
+345 female nonsmoker     white
+592   male nonsmoker     white
+585   male    smoker     white
+660   male nonsmoker     white
+12  female nonsmoker     white
+293 female nonsmoker     white
+707 female nonsmoker not white
+303   male nonsmoker not white
+841 female nonsmoker     white
+678 female    smoker     white
+338 female nonsmoker     white
+350   male nonsmoker not white
+823   male nonsmoker     white
+658   male nonsmoker     white
+107 female nonsmoker not white
+752 female nonsmoker     white
+543   male    smoker     white
+518 female nonsmoker     white
+775 female nonsmoker     white
+977   male    smoker     white
+43    male nonsmoker     white
+189 female nonsmoker     white
+171   male nonsmoker not white
+39  female nonsmoker not white
+216 female    smoker not white
+747 female nonsmoker not white
+291   male nonsmoker not white
+58  female nonsmoker not white
+395 female nonsmoker not white
+979   male nonsmoker     white
+737 female nonsmoker not white
+456   male nonsmoker     white
+22    male nonsmoker     white
+170 female nonsmoker not white
+588 female    smoker     white
+63    male nonsmoker not white
+774 female nonsmoker not white
+804   male nonsmoker not white
+417   male nonsmoker     white
+903 female nonsmoker     white
+70    male    smoker not white
+59  female nonsmoker not white
+915   male nonsmoker     white
+484 female    smoker not white
+203   male nonsmoker     white
+227 female    smoker     white
+243 female nonsmoker     white
+413 female nonsmoker     white
+577 female nonsmoker     white
+542   male nonsmoker not white
+476   male nonsmoker     white
+768 female nonsmoker     white
+920 female nonsmoker     white
+405   male nonsmoker     white
+397   male nonsmoker not white
+716 female nonsmoker     white
+607   male nonsmoker     white
+501   male nonsmoker     white
+429 female nonsmoker     white
+205   male nonsmoker not white
+475   male nonsmoker not white
+104 female nonsmoker     white
+210   male nonsmoker not white
+471 female nonsmoker     white
+671   male nonsmoker     white
+66  female    smoker     white
+88  female nonsmoker     white
+944   male nonsmoker     white
+601   male nonsmoker     white
+309   male nonsmoker not white
+896 female nonsmoker     white
+294   male nonsmoker     white
+421   male nonsmoker     white
+715 female nonsmoker     white
+877   male nonsmoker     white
+430   male nonsmoker     white
+512   male nonsmoker     white
+361   male nonsmoker     white
+885   male nonsmoker not white
+480   male nonsmoker     white
+15  female    smoker     white
+486   male    smoker     white
+254   male nonsmoker     white
+491 female nonsmoker     white
+976 female    smoker not white
+178 female nonsmoker     white
+428 female nonsmoker not white
+793 female nonsmoker     white
+955 female    smoker not white
+677   male    smoker     white
+194 female nonsmoker     white
+599   male nonsmoker     white
+917   male nonsmoker     white
+378 female    smoker     white
+735 female nonsmoker     white
+155 female nonsmoker not white
+166 female    smoker     white
+207 female nonsmoker     white
+468   male nonsmoker     white
+105 female nonsmoker not white
+482   male nonsmoker     white
+587 female    smoker     white
+280   male    smoker not white
+440   male nonsmoker     white
+389 female nonsmoker not white
+499   male nonsmoker not white
+251 female nonsmoker     white
+231 female nonsmoker     white
+564 female nonsmoker     white
+938   male nonsmoker     white
+827 female nonsmoker     white
+463 female nonsmoker     white
+100   male    smoker not white
+834   male nonsmoker     white
+141 female nonsmoker not white
+961   male nonsmoker not white
+692   male nonsmoker     white
+36    male nonsmoker not white
+626   male nonsmoker     white
+906 female nonsmoker     white
+362   male nonsmoker     white
+86    male nonsmoker not white
+138 female nonsmoker     white
+344   male nonsmoker     white
+211 female    smoker     white
+461   male nonsmoker     white
+681 female nonsmoker     white
+682   male nonsmoker     white
+898   male nonsmoker     white
+947 female nonsmoker     white
+758 female nonsmoker     white
+967   male nonsmoker     white
+750 female nonsmoker     white
+611   male nonsmoker     white
+972 female nonsmoker     white
+371 female nonsmoker not white
+380 female    smoker not white
+97  female    smoker not white
+49  female nonsmoker     white
+469 female nonsmoker     white
+260 female nonsmoker     white
+654 female nonsmoker     white
+782 female nonsmoker not white
+174 female nonsmoker not white
+982   male nonsmoker     white
+554 female nonsmoker     white
+881   male nonsmoker     white
+183   male nonsmoker     white
+347 female nonsmoker not white
+74    male nonsmoker     white
+777   male    smoker     white
+987   male nonsmoker     white
+118 female nonsmoker     white
+271   male    smoker     white
+551   male nonsmoker     white
+738 female    smoker     white
+357   male nonsmoker     white
+252   male nonsmoker     white
+712 female nonsmoker not white
+652   male nonsmoker not white
+459 female nonsmoker     white
+61    male nonsmoker not white
+566   male nonsmoker not white
+179   male nonsmoker not white
+272 female    smoker     white
+76    male nonsmoker     white
+87    male nonsmoker     white
+224   male nonsmoker     white
+842   male nonsmoker     white
+164 female    smoker     white
+13  female nonsmoker not white
+526   male nonsmoker     white
+956   male nonsmoker     white
+795 female nonsmoker not white
+576   male nonsmoker     white
+545 female nonsmoker     white
+334 female nonsmoker not white
+95  female nonsmoker     white
+755   male nonsmoker     white
+269   male nonsmoker     white
+53  female nonsmoker     white
+367 female nonsmoker     white
+420 female nonsmoker     white
+54  female nonsmoker not white
+383 female    smoker     white
+657   male nonsmoker     white
+274 female    smoker     white
+882 female nonsmoker     white
+168   male nonsmoker not white
+693   male nonsmoker not white
+630   male nonsmoker     white
+191 female nonsmoker     white
+791   male nonsmoker     white
+992 female nonsmoker     white
+771   male nonsmoker     white
+530   male    smoker not white
+67  female    smoker     white
+679 female    smoker     white
+969 female nonsmoker not white
+277   male    smoker     white
+946 female nonsmoker     white
+34  female nonsmoker not white
+504 female nonsmoker     white
+562   male nonsmoker not white
+673 female nonsmoker     white
+648 female    smoker     white
+711 female nonsmoker     white
+821 female nonsmoker     white
+531   male    smoker     white
+796 female nonsmoker     white
+127   male nonsmoker     white
+31    male    smoker     white
+547 female nonsmoker     white
+907   male nonsmoker not white
+724 female nonsmoker     white
+308 female nonsmoker     white
+580   male nonsmoker not white
+924   male nonsmoker     white
+808 female nonsmoker     white
+11    male nonsmoker     white
+149   male nonsmoker     white
+980   male nonsmoker      &lt;NA&gt;
+349 female nonsmoker     white
+845 female nonsmoker     white
+745   male nonsmoker     white
+717   male nonsmoker     white
+651   male nonsmoker not white
+859 female nonsmoker     white
+943   male nonsmoker     white
+929 female    smoker     white
+235   male nonsmoker not white
+936 female nonsmoker     white
+487   male    smoker     white
+120   male nonsmoker     white
+346 female nonsmoker     white
+439 female    smoker not white
+199   male nonsmoker     white
+165   male    smoker     white
+198 female nonsmoker     white
+637 female nonsmoker     white
+152 female nonsmoker     white
+454 female nonsmoker not white
+372   male nonsmoker     white
+285 female nonsmoker not white
+535   male    smoker     white
+399   male nonsmoker not white
+1     male nonsmoker not white
+241 female nonsmoker     white
+922 female nonsmoker not white
+921 female nonsmoker     white
+557   male nonsmoker     white
+348 female nonsmoker     white
+201   male nonsmoker not white
+878 female nonsmoker     white
+419 female nonsmoker     white
+880 female nonsmoker     white
+25  female nonsmoker     white
+341 female nonsmoker     white
+514 female nonsmoker not white
+161 female    smoker     white
+75    male    smoker     white
+135   male nonsmoker     white
+563 female nonsmoker not white
+565   male nonsmoker     white
+763   male nonsmoker     white
+733 female nonsmoker     white
+631 female nonsmoker     white
+916   male nonsmoker     white
+640   male    smoker     white
+206   male nonsmoker     white
+192   male nonsmoker not white
+836   male nonsmoker     white
+237   male nonsmoker     white
+894 female    smoker     white
+286   male nonsmoker     white
+143 female nonsmoker     white
+616 female nonsmoker     white
+892 female nonsmoker     white
+632   male nonsmoker not white
+604 female nonsmoker     white
+852   male nonsmoker     white
+814 female nonsmoker     white
+321 female    smoker not white
+579 female nonsmoker not white
+999 female nonsmoker     white
+586 female    smoker     white
+886   male nonsmoker     white
+462   male nonsmoker not white
+128 female nonsmoker not white
+603 female nonsmoker     white
+612 female nonsmoker     white
+935   male nonsmoker     white
+51  female nonsmoker not white
+689   male nonsmoker     white
+672 female nonsmoker     white
+295 female nonsmoker not white
+477   male nonsmoker     white
+222   male nonsmoker     white
+352 female nonsmoker not white
+376   male nonsmoker     white
+85  female nonsmoker     white
+923   male nonsmoker     white
+502   male nonsmoker     white
+596   male    smoker     white
+150   male nonsmoker     white
+159   male    smoker     white
+289   male nonsmoker     white
+730 female    smoker     white
+546   male nonsmoker     white
+700 female nonsmoker not white
+299   male nonsmoker not white
+966 female nonsmoker     white
+867   male nonsmoker     white
+762   male nonsmoker not white
+374   male nonsmoker not white
+391   male nonsmoker     white
+331   male nonsmoker     white
+204 female nonsmoker     white
+396   male nonsmoker     white
+57    male nonsmoker not white
+835   male nonsmoker     white
+354 female nonsmoker not white
+29    male nonsmoker     white
+377 female nonsmoker     white
+662 female nonsmoker not white
+55    male nonsmoker     white
+962 female nonsmoker     white
+829 female nonsmoker     white
+279 female    smoker     white
+570   male nonsmoker not white
+190 female nonsmoker not white
+493   male nonsmoker     white
+132   male nonsmoker     white
+680 female nonsmoker     white
+263 female nonsmoker     white
+866 female nonsmoker     white
+871 female nonsmoker     white
+340 female nonsmoker     white
+792   male nonsmoker     white
+618   male nonsmoker     white
+238   male nonsmoker     white
+329   male nonsmoker not white
+229 female nonsmoker     white
+914   male nonsmoker     white
+655 female nonsmoker     white
+809 female nonsmoker     white
+537   male    smoker     white
+223 female nonsmoker     white
+656   male nonsmoker not white
+910 female nonsmoker     white
+187 female nonsmoker not white
+121 female nonsmoker     white
+23    male nonsmoker not white
+862 female nonsmoker not white
+769 female nonsmoker not white
+536   male    smoker     white
+500 female nonsmoker not white
+625 female nonsmoker     white
+407   male nonsmoker not white
+176   male    smoker     white
+818   male    smoker     white
+957   male nonsmoker     white
+523 female nonsmoker     white
+940 female nonsmoker     white
+932 female nonsmoker     white
+520   male nonsmoker     white
+995   male nonsmoker not white
+133 female nonsmoker not white
+2     male nonsmoker not white
+756 female nonsmoker not white
+38    male nonsmoker     white
+609   male nonsmoker     white
+913 female nonsmoker not white
+292   male nonsmoker not white
+719   male nonsmoker     white
+951 female nonsmoker     white
+443   male nonsmoker not white
+366   male nonsmoker      &lt;NA&gt;
+412 female nonsmoker     white
+911 female nonsmoker not white
+21    male nonsmoker not white
+422   male nonsmoker     white
+112   male nonsmoker     white
+489 female    smoker     white
+124 female nonsmoker     white
+356 female nonsmoker     white
+437   male    smoker not white
+91    male nonsmoker     white
+259   male nonsmoker not white
+998 female nonsmoker not white
+453 female nonsmoker     white
+336   male nonsmoker not white
+593 female nonsmoker     white
+35    male nonsmoker     white
+17  female    smoker     white
+941 female nonsmoker not white
+954   male    smoker     white
+306 female nonsmoker     white
+688   male nonsmoker     white
+930   male    smoker not white
+32    male nonsmoker not white
+704 female nonsmoker     white
+446 female nonsmoker     white
+452 female nonsmoker     white
+304   male nonsmoker not white
+225 female nonsmoker     white
+226 female nonsmoker     white
+311   male nonsmoker     white
+619 female nonsmoker     white
+872   male nonsmoker not white
+926   male nonsmoker     white
+481 female nonsmoker     white
+839 female nonsmoker     white
+278 female    smoker     white
+939   male nonsmoker     white
+837 female nonsmoker not white
+275   male    smoker     white
+686 female nonsmoker     white
+447 female nonsmoker     white
+267   male nonsmoker     white
+749 female nonsmoker     white
+385 female    smoker     white
+264   male nonsmoker not white
+110 female    smoker not white
+509 female nonsmoker not white
+591   male nonsmoker     white
+42    male nonsmoker not white
+245 female nonsmoker     white
+765   male nonsmoker     white
+893 female nonsmoker     white
+423 female nonsmoker     white
+788 female nonsmoker     white
+94  female nonsmoker     white
+988   male nonsmoker not white
+568   male nonsmoker     white
+532   male    smoker     white
+669 female nonsmoker     white
+606   male nonsmoker     white
+373 female nonsmoker     white
+550   male nonsmoker     white
+705 female nonsmoker     white
+253   male nonsmoker     white
+177 female nonsmoker     white
+364 female nonsmoker not white
+584   male nonsmoker     white
+773 female nonsmoker     white
+732   male    smoker     white
+676   male    smoker     white
+772   male nonsmoker     white
+728 female nonsmoker     white
+14  female nonsmoker     white
+472   male nonsmoker     white
+761   male nonsmoker not white
+853 female nonsmoker     white
+3   female nonsmoker     white
+122   male nonsmoker     white
+964   male nonsmoker     white
+668 female nonsmoker     white
+48  female nonsmoker     white
+448 female nonsmoker     white
+664   male nonsmoker     white
+7     male nonsmoker not white
+268 female nonsmoker not white
+339   male nonsmoker not white
+28    male nonsmoker not white
+942   male nonsmoker     white
+725   male nonsmoker     white
+516   male nonsmoker not white
+684   male nonsmoker not white
+392 female nonsmoker     white
+37  female nonsmoker     white
+106 female nonsmoker     white
+889   male nonsmoker     white
+644 female nonsmoker     white
+27    male nonsmoker not white
+874   male nonsmoker not white
+739   male    smoker     white
+394   male nonsmoker not white
+753   male nonsmoker     white
+525 female nonsmoker     white
+718   male nonsmoker     white
+754 female nonsmoker     white
+240   male nonsmoker     white
+815 female nonsmoker not white
+925 female nonsmoker     white
+742   male nonsmoker     white
+402   male nonsmoker     white
+549   male nonsmoker not white
+567   male nonsmoker not white
+702   male nonsmoker     white
+590   male nonsmoker     white
+981   male nonsmoker     white
+868   male nonsmoker     white
+610 female nonsmoker     white
+647   male    smoker not white
+555 female nonsmoker not white
+153   male nonsmoker not white
+653 female nonsmoker     white
+82    male nonsmoker     white
+353   male nonsmoker     white
+283   male nonsmoker not white
+411 female nonsmoker     white
+785 female nonsmoker not white
+983 female nonsmoker     white
+119   male nonsmoker not white
+6     male nonsmoker not white
+425 female nonsmoker     white</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>test_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    fage mage      mature weeks    premie visits     marital gained weight
+5     NA   15 younger mom    39 full term      9     married     27   6.38
+8     17   15 younger mom    35    premie      5     married     15   4.69
+9     NA   16 younger mom    38 full term      9     married     NA   8.81
+16    NA   16 younger mom    40 full term      7     married     35   6.88
+18    16   16 younger mom    24    premie      5     married     12   1.50
+20    18   17 younger mom    37 full term     10     married     39   6.19
+24    NA   17 younger mom    40 full term     15     married     20   7.63
+26    NA   17 younger mom    38 full term     12     married     30   5.56
+33    20   17 younger mom    29    premie      6     married     35   4.56
+44    20   18 younger mom    38 full term      6     married     48   7.00
+45    23   18 younger mom    37 full term      6 not married     35   5.81
+46    21   18 younger mom    38 full term     16     married     40   7.44
+47    21   18 younger mom    41 full term     10     married     30   7.75
+50    20   18 younger mom    38 full term     13     married     60   8.31
+52    21   18 younger mom    40 full term     13     married     10   5.50
+56    NA   18 younger mom    39 full term      8     married     26   9.06
+62    22   18 younger mom    39 full term     14     married     23   7.06
+64    23   18 younger mom    37 full term      4     married     NA   5.94
+65    20   18 younger mom    41 full term     14     married     NA   8.56
+68    NA   18 younger mom    44 full term     15     married     17   7.44
+69    25   18 younger mom    41 full term     17 not married     33   7.88
+72    22   18 younger mom    33    premie      9     married      4   4.44
+73    23   18 younger mom    30    premie      2     married     NA   4.75
+78    31   19 younger mom    40 full term     11     married     16   7.88
+80    NA   19 younger mom    41 full term     12     married      0   8.56
+81    21   19 younger mom    40 full term     11 not married     23   9.25
+89    21   19 younger mom    41 full term     15     married     55   6.25
+90    24   19 younger mom    40 full term      4     married     55   8.00
+92    NA   19 younger mom    39 full term      9     married     35   7.75
+93    21   19 younger mom    37 full term      8     married     35   4.69
+96    21   19 younger mom    39 full term     15     married     38   6.88
+99    NA   19 younger mom    39 full term     11     married     48   8.38
+109   19   19 younger mom    36    premie     10 not married     35   7.25
+111   22   20 younger mom    39 full term     14 not married     25   9.94
+113   17   20 younger mom    39 full term     16     married     35   5.63
+114   NA   20 younger mom    38 full term     15     married     35   6.50
+115   21   20 younger mom    40 full term     14 not married     23   5.63
+117   29   20 younger mom    40 full term     11     married     50   9.56
+125   23   20 younger mom    39 full term      0     married     70   5.94
+129   21   20 younger mom    40 full term     12 not married     14   7.44
+130   18   20 younger mom    39 full term     10     married     35   7.88
+134   21   20 younger mom    37 full term     23 not married     40   6.38
+137   24   20 younger mom    38 full term      9     married     25   7.19
+139   21   20 younger mom    38 full term      8 not married     35   6.75
+140   18   20 younger mom    40 full term     10     married     28   8.13
+144   22   20 younger mom    38 full term     13 not married     35   8.44
+146   23   20 younger mom    39 full term     13     married     33   7.25
+148   18   20 younger mom    38 full term      8 not married     34   5.75
+151   22   20 younger mom    41 full term     11 not married     52   9.00
+154   23   20 younger mom    41 full term     11     married     47   8.00
+156   21   20 younger mom    42 full term     11     married     45   7.75
+157   22   20 younger mom    38 full term      8 not married     45   7.44
+158   22   20 younger mom    43 full term     11     married     55   8.44
+162   26   20 younger mom    41 full term     16 not married     21   6.31
+167   NA   20 younger mom    37 full term     10     married     26   5.38
+172   19   20 younger mom    34    premie     13     married      6   4.50
+173   NA   20 younger mom    33    premie      9     married     18   4.94
+175   22   20 younger mom    34    premie     14 not married     13   4.13
+180   NA   21 younger mom    41 full term     18     married     62   6.00
+185   27   21 younger mom    41 full term      8 not married     26   5.94
+186   22   21 younger mom    39 full term      4 not married     NA   7.00
+193   26   21 younger mom    44 full term     11 not married     15   7.50
+196   29   21 younger mom    39 full term     18 not married     13   7.75
+197   22   21 younger mom    37 full term     19     married     30   5.44
+200   22   21 younger mom    39 full term      8     married     27   6.75
+202   22   21 younger mom    37 full term      5 not married     30   5.88
+209   35   21 younger mom    40 full term     10     married     29   7.88
+213   NA   21 younger mom    38 full term      5     married      0   6.38
+217   NA   21 younger mom    39 full term     10     married     56   8.63
+219   NA   21 younger mom    34    premie     12     married     25   5.81
+220   NA   21 younger mom    36    premie     10     married     25   4.25
+230   22   22 younger mom    39 full term     11 not married     34   8.19
+232   35   22 younger mom    39 full term     10     married     20   8.00
+233   24   22 younger mom    39 full term     12     married     32   8.38
+236   24   22 younger mom    39 full term     15     married     45   7.50
+239   26   22 younger mom    39 full term     10     married     45   7.94
+242   22   22 younger mom    41 full term     11 not married     31   7.69
+244   NA   22 younger mom    40 full term     15     married     15   7.25
+246   26   22 younger mom    39 full term      9 not married     32   7.69
+247   NA   22 younger mom    41 full term     13     married     28   7.81
+255   NA   22 younger mom    37 full term      7     married     39   5.88
+256   22   22 younger mom    40 full term     15     married     31   7.06
+257   23   22 younger mom    39 full term     15 not married     50   7.50
+261   21   22 younger mom    39 full term     16     married     45   6.00
+266   NA   22 younger mom    39 full term     13     married     37   8.38
+273   24   22 younger mom    40 full term     16 not married     34   6.88
+282   NA   22 younger mom    32    premie      8     married     35   5.00
+287   28   22 younger mom    22    premie      8     married     10   1.00
+288   26   23 younger mom    38 full term      5     married     28   7.19
+290   NA   23 younger mom    42 full term      9 not married     22   8.81
+300   28   23 younger mom    40 full term      8 not married     31   9.00
+301   24   23 younger mom    41 full term     15 not married     25   7.75
+302   20   23 younger mom    39 full term     10     married     30   6.06
+310   NA   23 younger mom    38 full term     12     married     35   8.38
+312   23   23 younger mom    40 full term      9     married     24   7.63
+314   26   23 younger mom    43 full term     15     married     35   8.19
+315   NA   23 younger mom    40 full term     10     married     30   7.31
+316   23   23 younger mom    37 full term     10     married     33   7.50
+317   27   23 younger mom    37 full term      6     married     33   7.25
+318   25   23 younger mom    39 full term     15 not married     30   7.13
+320   22   23 younger mom    38 full term     10     married     54   8.69
+322   20   23 younger mom    39 full term     15 not married     56   7.31
+323   NA   23 younger mom    37 full term     NA     married     25   5.75
+324   26   23 younger mom    41 full term     10 not married     40   7.31
+325   NA   23 younger mom    39 full term     11     married     40   7.50
+327   NA   23 younger mom    36    premie     10     married     62   5.88
+330   25   23 younger mom    24    premie      5     married     NA   1.44
+332   22   23 younger mom    36    premie     11 not married     15   5.13
+333   21   23 younger mom    33    premie      5     married     30   5.44
+337   NA   23 younger mom    36    premie      2     married     27   5.88
+342   27   24 younger mom    39 full term     15 not married     40   6.69
+351   25   24 younger mom    37 full term     12 not married     45   5.88
+355   32   24 younger mom    41 full term     15     married     20   8.38
+359   22   24 younger mom    39 full term     14 not married     18   7.31
+360   NA   24 younger mom    38 full term     16     married     15   6.31
+368   25   24 younger mom    41 full term     16 not married     37   7.19
+369   47   24 younger mom    40 full term     12 not married     46   6.88
+370   46   24 younger mom    38 full term     14 not married     58   6.63
+381   26   24 younger mom    38 full term     13 not married     NA   7.19
+384   NA   24 younger mom    37 full term      5 not married     34   7.38
+386   NA   24 younger mom    40 full term     12     married     47   7.50
+387   NA   24 younger mom    39 full term      8     married     22   5.00
+388   32   24 younger mom    36    premie     12 not married     12   5.81
+393   NA   25 younger mom    37 full term     11     married     31   6.25
+398   23   25 younger mom    41 full term     12 not married     20   8.00
+401   32   25 younger mom    37 full term     13 not married     50   7.75
+404   23   25 younger mom    37 full term      8 not married     53   7.69
+406   NA   25 younger mom    39 full term     14 not married     20   6.88
+408   25   25 younger mom    39 full term     18 not married     28   7.94
+409   36   25 younger mom    40 full term     13 not married     34   8.75
+410   NA   25 younger mom    40 full term     14     married     48   8.56
+414   NA   25 younger mom    40 full term      8     married     18   8.19
+415   28   25 younger mom    40 full term      7 not married     31   9.19
+416   NA   25 younger mom    38 full term      9     married     30   6.06
+418   NA   25 younger mom    39 full term      6     married     40   7.38
+426   25   25 younger mom    38 full term     19 not married     13   7.63
+433   26   25 younger mom    40 full term     10 not married     25   7.00
+435   NA   25 younger mom    39 full term      5 not married     37   6.00
+436   23   25 younger mom    37 full term     14 not married     33   7.31
+438   25   25 younger mom    38 full term     10     married     35   5.94
+445   30   25 younger mom    35    premie     15 not married     40   4.50
+451   35   26 younger mom    41 full term     12     married     30   7.19
+455   32   26 younger mom    39 full term     13     married     55   8.25
+458   33   26 younger mom    39 full term     11     married     27   5.38
+464   NA   26 younger mom    40 full term     15     married     30   8.19
+465   29   26 younger mom    38 full term     12 not married     25   7.94
+466   NA   26 younger mom    41 full term      6     married      0   7.38
+467   26   26 younger mom    41 full term     10 not married     68   9.31
+470   25   26 younger mom    41 full term     12     married     20   7.06
+473   30   26 younger mom    39 full term     14 not married     40   8.31
+483   NA   26 younger mom    38 full term     14     married     40   8.00
+490   31   26 younger mom    36    premie     18 not married     40   8.00
+492   29   26 younger mom    36    premie     10     married     21   8.19
+494   35   26 younger mom    34    premie     14 not married     48   6.50
+496   29   26 younger mom    36    premie      4 not married      0   7.50
+498   33   27 younger mom    41 full term     14 not married     58   8.00
+503   31   27 younger mom    38 full term     12 not married     31   6.56
+505   32   27 younger mom    38 full term     11 not married     14   4.56
+506   37   27 younger mom    41 full term      8 not married     15   8.50
+507   30   27 younger mom    39 full term     10 not married     37   8.88
+513   45   27 younger mom    39 full term     14 not married     43   9.13
+515   32   27 younger mom    38 full term      9 not married     29   8.25
+517   30   27 younger mom    40 full term     15 not married     40   8.25
+519   NA   27 younger mom    39 full term     16 not married     25   7.69
+521   39   27 younger mom    37 full term     13 not married     50   7.75
+524   32   27 younger mom    43 full term     11 not married     30   6.56
+527   27   27 younger mom    39 full term     14 not married     31   7.56
+528   37   27 younger mom    39 full term     16 not married     34   7.19
+533   24   27 younger mom    39 full term     15     married     42   6.75
+539   NA   27 younger mom    25    premie     10     married     30   1.38
+544   NA   28 younger mom    40 full term     13     married      0   7.44
+553   28   28 younger mom    40 full term     15 not married      0   8.38
+556   28   28 younger mom    39 full term     13 not married     35   8.13
+558   30   28 younger mom    38 full term      8 not married      0   7.56
+559   45   28 younger mom    37 full term     13 not married     13   7.44
+560   31   28 younger mom    39 full term     20 not married     35   7.06
+571   33   28 younger mom    38 full term     11     married     16   7.56
+572   NA   28 younger mom    37 full term     13     married     35   8.25
+575   24   28 younger mom    39 full term     15 not married     33   5.56
+581   NA   28 younger mom    38 full term     10 not married     70   8.19
+582   30   28 younger mom    38 full term     12 not married     41   8.50
+583   23   28 younger mom    39 full term     13     married     34   5.69
+589   34   28 younger mom    25    premie     NA     married     25   1.88
+594   31   28 younger mom    35    premie      6 not married     30   6.13
+614   30   29 younger mom    39 full term     14 not married     30   5.38
+615   35   29 younger mom    39 full term      6 not married     NA   6.25
+617   32   29 younger mom    39 full term     11 not married     28   7.88
+620   29   29 younger mom    37 full term     10     married     40   7.13
+621   28   29 younger mom    39 full term      8 not married     15   7.69
+622   33   29 younger mom    41 full term     13 not married     34   9.56
+624   32   29 younger mom    38 full term     14 not married     20   7.44
+628   NA   29 younger mom    37 full term     13     married     14   5.00
+633   34   29 younger mom    39 full term     15 not married     24   8.25
+635   36   29 younger mom    41 full term     10 not married     35   7.56
+636   35   29 younger mom    38 full term     12 not married     40   7.81
+639   27   29 younger mom    37 full term     15 not married     33   5.69
+641   33   29 younger mom    35    premie     15 not married     13   5.44
+650   34   30 younger mom    39 full term     15 not married     19   6.06
+663   30   30 younger mom    37 full term     12 not married     23   5.63
+666   33   30 younger mom    39 full term     14 not married     35   7.25
+674   33   30 younger mom    39 full term      9 not married     42   7.81
+683   NA   30 younger mom    34    premie     15     married     14   6.06
+685   32   30 younger mom    35    premie     10 not married     20   6.00
+690   35   31 younger mom    38 full term     10 not married     26   6.81
+691   30   31 younger mom    38 full term     15 not married     44   6.56
+694   35   31 younger mom    38 full term     10 not married     38   7.44
+695   34   31 younger mom    39 full term     10 not married     44   7.38
+698   42   31 younger mom    39 full term     12 not married     34   7.88
+699   32   31 younger mom    40 full term     15 not married     46   8.00
+703   32   31 younger mom    41 full term     15 not married     28   7.63
+706   NA   31 younger mom    40 full term     10     married     12   5.25
+709   31   31 younger mom    41 full term     14 not married     40   8.13
+710   34   31 younger mom    39 full term     12 not married     50   9.25
+713   38   31 younger mom    45 full term     12 not married     50   7.13
+714   31   31 younger mom    39 full term     15 not married     30   6.38
+720   35   31 younger mom    40 full term     10 not married     45   8.00
+721   30   31 younger mom    39 full term     12 not married     42   7.88
+722   32   31 younger mom    37 full term     13 not married     30  10.38
+723   33   31 younger mom    38 full term     15 not married     35   8.81
+729   35   31 younger mom    40 full term     15 not married     30   7.06
+731   43   31 younger mom    41 full term      5 not married     20   7.06
+734   32   31 younger mom    30    premie     10 not married     20   2.88
+741   NA   32 younger mom    41 full term     15     married     28   4.75
+743   30   32 younger mom    39 full term     14 not married     55   9.38
+744   NA   32 younger mom    41 full term     12     married     21   7.13
+746   28   32 younger mom    40 full term     11 not married     43   7.44
+748   33   32 younger mom    41 full term     12 not married     32   9.13
+751   26   32 younger mom    43 full term     12 not married     30  11.63
+759   30   32 younger mom    39 full term     18 not married     45   9.31
+764   34   32 younger mom    39 full term     13 not married     25   7.31
+766   35   32 younger mom    38 full term     13 not married     37   5.00
+767   38   32 younger mom    39 full term     10 not married     35   9.25
+770   33   32 younger mom    33    premie     13 not married     35   3.00
+778   35   33 younger mom    40 full term     11 not married     23   6.81
+780   33   33 younger mom    38 full term     15     married     60   6.56
+781   35   33 younger mom    42 full term     13     married      3   6.75
+783   32   33 younger mom    38 full term     11 not married     26   7.31
+784   42   33 younger mom    42 full term     24 not married     20   6.44
+786   31   33 younger mom    39 full term     16     married     28   8.06
+787   38   33 younger mom    39 full term     12 not married     25   9.25
+790   36   33 younger mom    39 full term     15 not married     44   7.56
+797   33   33 younger mom    38 full term     13 not married     18   6.88
+798   35   33 younger mom    37 full term     13 not married     21   9.63
+799   31   33 younger mom    37 full term     14 not married     24   7.88
+800   42   33 younger mom    41 full term     15 not married     30   8.88
+801   33   33 younger mom    37 full term     14 not married      0   7.81
+802   35   33 younger mom    41 full term     16     married     41   7.38
+805   33   33 younger mom    37 full term     10 not married     35   8.25
+807   32   33 younger mom    40 full term     12     married     36   8.81
+810   38   33 younger mom    38 full term     14 not married     30   5.88
+812   27   33 younger mom    40 full term     15 not married     35   9.31
+813   34   33 younger mom    40 full term     25     married     25   7.88
+817   35   33 younger mom    40 full term     16 not married     30   6.81
+819   34   33 younger mom    43 full term     13 not married     25   9.13
+820   34   33 younger mom    35    premie     10     married     20   5.63
+822   37   33 younger mom    36    premie     11 not married     15   6.31
+824   25   34 younger mom    41 full term     10     married     35   8.19
+825   32   34 younger mom    39 full term     13 not married     30   8.00
+831   35   34 younger mom    40 full term     15 not married     42   7.88
+832   35   34 younger mom    39 full term     13 not married     30   7.56
+843   35   34 younger mom    37 full term     14 not married     36   8.50
+846   36   34 younger mom    41 full term     15 not married     28   8.50
+847   40   34 younger mom    39 full term     12 not married     23   8.13
+849   34   34 younger mom    37 full term     15 not married     20   7.25
+850   22   34 younger mom    39 full term     12 not married     57   9.69
+851   38   34 younger mom    40 full term     18 not married      0   6.31
+855   30   34 younger mom    40 full term     10 not married     22   9.31
+856   26   34 younger mom    39 full term     16 not married     15   7.88
+858   35   34 younger mom    41 full term     10 not married     33   8.31
+860   34   34 younger mom    39 full term     10 not married     44   7.56
+861   39   34 younger mom    38 full term      8 not married     60   6.19
+863   38   34 younger mom    34    premie     10 not married     29   7.19
+865   38   34 younger mom    34    premie     10 not married     15   4.69
+869   43   35  mature mom    39 full term     12 not married     20   7.06
+870   30   35  mature mom    40 full term     12 not married     43   8.56
+873   38   35  mature mom    40 full term     14 not married     15   8.44
+876   39   35  mature mom    38 full term     12 not married     50   8.44
+888   42   35  mature mom    38 full term     10 not married     50   7.63
+897   38   35  mature mom    36    premie     16 not married     32   6.44
+899   38   35  mature mom    36    premie     11 not married     16   5.63
+909   32   36  mature mom    38 full term     18 not married     24   5.38
+912   42   36  mature mom    40 full term     13     married     50   7.38
+919   33   36  mature mom    40 full term     11 not married     40   8.13
+931   41   36  mature mom    31    premie      5 not married     40   3.25
+948   47   37  mature mom    38 full term     13 not married     40   7.94
+949   37   37  mature mom    40 full term     12 not married     29   6.25
+950   42   37  mature mom    40 full term     NA not married     10   7.94
+959   38   37  mature mom    26    premie      5 not married     25   3.63
+965   40   38  mature mom    42 full term     13 not married     20   7.56
+968   42   38  mature mom    41 full term     15 not married     35  10.13
+970   36   38  mature mom    35    premie     15     married     34   5.50
+971   NA   38  mature mom    32    premie     10     married     16   2.19
+973   39   39  mature mom    40 full term     12 not married     27   7.81
+975   38   39  mature mom    39 full term     20 not married     50   7.19
+978   53   39  mature mom    33    premie      6     married     24   5.50
+986   33   40  mature mom    36    premie     13     married     23   7.81
+989   50   41  mature mom    37 full term     12     married     61   7.44
+993   34   41  mature mom    39 full term     15 not married     40   6.56
+994   NA   41  mature mom    33    premie     13 not married      0   5.69
+996   34   42  mature mom    38 full term     18 not married     20   6.19
+    gender     habit  whitemom
+5   female nonsmoker not white
+8     male nonsmoker not white
+9     male nonsmoker     white
+16    male    smoker     white
+18    male nonsmoker not white
+20  female nonsmoker not white
+24  female nonsmoker not white
+26  female nonsmoker not white
+33    male nonsmoker not white
+44  female nonsmoker     white
+45  female nonsmoker     white
+46  female nonsmoker     white
+47    male nonsmoker not white
+50    male nonsmoker     white
+52  female nonsmoker     white
+56    male nonsmoker not white
+62  female nonsmoker not white
+64    male nonsmoker     white
+65  female nonsmoker     white
+68    male    smoker     white
+69    male    smoker     white
+72    male nonsmoker     white
+73    male nonsmoker     white
+78  female nonsmoker     white
+80    male nonsmoker not white
+81  female nonsmoker     white
+89    male nonsmoker not white
+90  female nonsmoker     white
+92    male nonsmoker not white
+93  female nonsmoker not white
+96    male nonsmoker not white
+99  female    smoker not white
+109   male nonsmoker not white
+111   male nonsmoker     white
+113 female nonsmoker not white
+114   male nonsmoker not white
+115 female nonsmoker     white
+117   male nonsmoker     white
+125 female nonsmoker not white
+129 female nonsmoker not white
+130   male nonsmoker not white
+134 female nonsmoker     white
+137 female nonsmoker     white
+139   male nonsmoker not white
+140   male nonsmoker     white
+144   male nonsmoker     white
+146   male nonsmoker not white
+148 female nonsmoker     white
+151 female nonsmoker not white
+154 female nonsmoker     white
+156   male nonsmoker     white
+157 female nonsmoker     white
+158   male nonsmoker not white
+162 female    smoker     white
+167 female    smoker     white
+172   male nonsmoker not white
+173 female nonsmoker not white
+175   male    smoker     white
+180   male nonsmoker not white
+185 female nonsmoker     white
+186 female nonsmoker     white
+193 female nonsmoker     white
+196 female nonsmoker     white
+197 female nonsmoker not white
+200 female nonsmoker     white
+202 female nonsmoker     white
+209   male nonsmoker     white
+213   male    smoker     white
+217   male    smoker not white
+219 female nonsmoker not white
+220   male nonsmoker not white
+230 female nonsmoker     white
+232   male nonsmoker     white
+233   male nonsmoker not white
+236   male nonsmoker not white
+239 female nonsmoker     white
+242 female nonsmoker     white
+244 female nonsmoker     white
+246   male nonsmoker     white
+247 female nonsmoker not white
+255 female nonsmoker not white
+256 female nonsmoker     white
+257   male nonsmoker     white
+261 female nonsmoker     white
+266   male nonsmoker not white
+273 female    smoker     white
+282   male nonsmoker     white
+287 female nonsmoker not white
+288 female nonsmoker     white
+290   male nonsmoker not white
+300   male nonsmoker     white
+301 female nonsmoker     white
+302   male nonsmoker     white
+310 female nonsmoker     white
+312 female nonsmoker not white
+314 female nonsmoker not white
+315   male nonsmoker     white
+316   male nonsmoker     white
+317 female nonsmoker     white
+318 female nonsmoker     white
+320   male nonsmoker not white
+322   male    smoker     white
+323   male    smoker not white
+324 female    smoker     white
+325   male    smoker not white
+327 female nonsmoker not white
+330   male nonsmoker not white
+332 female nonsmoker not white
+333   male nonsmoker     white
+337 female nonsmoker not white
+342 female nonsmoker     white
+351 female nonsmoker     white
+355 female nonsmoker     white
+359 female nonsmoker not white
+360 female nonsmoker     white
+368 female nonsmoker not white
+369   male nonsmoker     white
+370 female nonsmoker     white
+381 female    smoker     white
+384   male    smoker     white
+386 female    smoker not white
+387 female    smoker     white
+388   male nonsmoker     white
+393 female nonsmoker not white
+398 female nonsmoker     white
+401   male nonsmoker     white
+404 female nonsmoker     white
+406   male nonsmoker     white
+408   male nonsmoker     white
+409 female nonsmoker not white
+410   male nonsmoker     white
+414   male nonsmoker     white
+415   male nonsmoker     white
+416 female nonsmoker     white
+418 female nonsmoker     white
+426 female nonsmoker     white
+433   male nonsmoker     white
+435 female    smoker not white
+436 female    smoker     white
+438 female    smoker     white
+445   male    smoker     white
+451 female nonsmoker     white
+455 female nonsmoker     white
+458 female nonsmoker not white
+464 female nonsmoker     white
+465 female nonsmoker     white
+466 female nonsmoker     white
+467   male nonsmoker     white
+470   male nonsmoker     white
+473   male nonsmoker     white
+483   male    smoker     white
+490   male nonsmoker     white
+492 female nonsmoker     white
+494   male nonsmoker not white
+496   male nonsmoker     white
+498   male nonsmoker     white
+503 female nonsmoker     white
+505 female nonsmoker     white
+506 female nonsmoker     white
+507   male nonsmoker     white
+513   male nonsmoker     white
+515 female nonsmoker     white
+517   male nonsmoker     white
+519 female nonsmoker     white
+521   male nonsmoker     white
+524 female nonsmoker not white
+527 female nonsmoker     white
+528   male nonsmoker     white
+533 female    smoker not white
+539   male nonsmoker not white
+544 female nonsmoker not white
+553   male nonsmoker     white
+556 female nonsmoker     white
+558 female nonsmoker     white
+559   male nonsmoker not white
+560 female nonsmoker not white
+571 female nonsmoker     white
+572 female nonsmoker not white
+575 female nonsmoker     white
+581   male nonsmoker     white
+582   male nonsmoker not white
+583 female nonsmoker     white
+589 female nonsmoker not white
+594 female nonsmoker     white
+614   male nonsmoker not white
+615   male nonsmoker     white
+617 female nonsmoker not white
+620 female nonsmoker not white
+621 female nonsmoker not white
+622   male nonsmoker     white
+624 female nonsmoker     white
+628 female nonsmoker not white
+633 female nonsmoker not white
+635 female nonsmoker     white
+636   male nonsmoker     white
+639   male    smoker     white
+641 female nonsmoker     white
+650   male nonsmoker     white
+663 female nonsmoker     white
+666 female nonsmoker     white
+674   male    smoker     white
+683   male nonsmoker not white
+685 female nonsmoker     white
+690 female nonsmoker     white
+691   male nonsmoker     white
+694 female nonsmoker     white
+695   male nonsmoker     white
+698   male nonsmoker     white
+699   male nonsmoker     white
+703 female nonsmoker     white
+706   male nonsmoker     white
+709 female nonsmoker     white
+710   male nonsmoker     white
+713   male nonsmoker not white
+714 female nonsmoker     white
+720 female nonsmoker     white
+721   male nonsmoker     white
+722   male nonsmoker     white
+723 female nonsmoker     white
+729 female nonsmoker     white
+731 female    smoker     white
+734 female nonsmoker not white
+741 female nonsmoker not white
+743   male nonsmoker     white
+744   male nonsmoker     white
+746 female nonsmoker     white
+748 female nonsmoker     white
+751 female nonsmoker     white
+759   male nonsmoker     white
+764 female nonsmoker     white
+766 female nonsmoker     white
+767   male nonsmoker     white
+770 female nonsmoker     white
+778   male nonsmoker not white
+780   male nonsmoker     white
+781   male nonsmoker not white
+783 female nonsmoker     white
+784 female nonsmoker not white
+786 female nonsmoker     white
+787   male nonsmoker not white
+790   male nonsmoker     white
+797   male nonsmoker     white
+798   male nonsmoker     white
+799   male nonsmoker     white
+800 female nonsmoker     white
+801   male nonsmoker not white
+802 female nonsmoker     white
+805 female nonsmoker not white
+807 female nonsmoker not white
+810   male nonsmoker     white
+812   male nonsmoker     white
+813   male nonsmoker not white
+817   male nonsmoker     white
+819   male    smoker     white
+820 female nonsmoker     white
+822   male    smoker     white
+824 female nonsmoker     white
+825   male nonsmoker     white
+831 female nonsmoker     white
+832   male nonsmoker     white
+843   male nonsmoker     white
+846 female nonsmoker     white
+847   male nonsmoker     white
+849   male nonsmoker     white
+850   male nonsmoker not white
+851 female nonsmoker     white
+855   male nonsmoker     white
+856 female nonsmoker not white
+858 female nonsmoker not white
+860 female nonsmoker     white
+861 female nonsmoker     white
+863   male nonsmoker     white
+865 female nonsmoker     white
+869 female nonsmoker     white
+870   male nonsmoker     white
+873 female nonsmoker     white
+876   male nonsmoker     white
+888   male nonsmoker     white
+897 female nonsmoker     white
+899   male nonsmoker not white
+909 female nonsmoker     white
+912   male nonsmoker not white
+919 female nonsmoker     white
+931   male nonsmoker     white
+948   male nonsmoker     white
+949 female nonsmoker     white
+950   male nonsmoker not white
+959   male nonsmoker not white
+965 female nonsmoker     white
+968 female nonsmoker     white
+970 female nonsmoker     white
+971 female    smoker     white
+973 female nonsmoker     white
+975 female nonsmoker     white
+978   male    smoker not white
+986 female nonsmoker     white
+989   male nonsmoker     white
+993   male nonsmoker not white
+994 female nonsmoker not white
+996 female nonsmoker     white</code></pre>
+</div>
+</div>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2:</h2>
+<p>In this task, you will be using the <strong><code>train_data</code></strong> dataset to run a linear regression that takes ‘weight’ as the dependent variable and all the other columns as the predictor.</p>
+<ul>
+<li><p>You will use the <strong><code>lm()</code></strong> function to estimate your linear model and name it as <strong><code>linearmodel</code></strong>.</p></li>
+<li><p>Use the <strong><code>predict()</code></strong> function to predict the ‘weight’ variable in the <strong><code>test_data</code></strong> dataset using <strong><code>linearmodel</code></strong>.</p></li>
+<li><p>Store the resulting predictions in a new object called <strong><code>predicted_weights</code></strong>.</p></li>
+<li><p>Calculate the mean squared prediction error in the <strong><code>test_data</code></strong> dataset by comparing the predicted ‘weight’ values with the actual ‘weight’ values. Store the resulting value in an object called <strong><code>MSPE_linear</code></strong>.</p></li>
+<li><p>Print the value of <strong><code>MSPE_linear</code></strong> to the console using the <strong><code>print()</code></strong> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run linear regression on train_data using weight as predicted variable </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lm() function and name it as linearmodel</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>linearmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> ., <span class="at">data =</span> train_data)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict weight variable in test_data using linearmodel</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use predict() function </span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>predicted_weights <span class="ot">&lt;-</span> <span class="fu">predict</span>(linearmodel, <span class="at">newdata =</span> test_data)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean squared prediction error by comparing the predicted 'weight' values with the actual 'weight' values.</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the resulting value in an object called MSPE_linear</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ignore the nulls for calc</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>MSPE_linear <span class="ot">&lt;-</span> <span class="fu">mean</span>((test_data<span class="sc">$</span>weight <span class="sc">-</span> predicted_weights)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Print MSPE_linear to console</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(MSPE_linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.090369</code></pre>
+</div>
+</div>
+<h2 id="task-3" class="anchored">Task 3:</h2></li>
+<li><p>Use the generalized additive model (GAM) function in the <strong><code>mgcv</code></strong> package to complete the same task. In other words, fit a GAM on the <code>train_data</code> using the <strong><code>gam()</code></strong> function. Use the <strong><code>s()</code></strong> function for each predictor. By doing so, you specify that each predictor variable is modeled using a smoothing spline. Save your R object as <code>gam_model</code></p></li>
+<li><p>Use the <strong><code>predict()</code></strong> function to predict the ‘weight’ variable in the <strong><code>test_data</code></strong> dataset using <strong><code>gam_model</code></strong>. Store the resulting predictions in a new object called <strong><code>predicted_weights</code></strong>.</p></li>
+<li><p>Calculate the mean squared prediction error in the <strong><code>test_data</code></strong> dataset by comparing the predicted ‘weight’ values with the actual ‘weight’ values. Store the resulting value in an object called <strong><code>MSPE_gam</code></strong>.</p></li>
+</ul>
+<p>Print the value of <strong><code>MSPE_gam</code></strong> to the console using the <strong><code>print()</code></strong> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nlme</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'nlme'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    collapse</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is mgcv 1.8-42. For overview type 'help("mgcv-package")'.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a GAM on the train_data dataset using the gam() function</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inserting factor variable inside a smoothing function (s()) can create all kinds of problem. so left them out</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>gam_model <span class="ot">&lt;-</span> <span class="fu">gam</span>(weight <span class="sc">~</span> <span class="fu">s</span>(fage) <span class="sc">+</span> <span class="fu">s</span>(mage) <span class="sc">+</span> mature <span class="sc">+</span> <span class="fu">s</span>(weeks) <span class="sc">+</span> premie <span class="sc">+</span> <span class="fu">s</span>(visits) <span class="sc">+</span> marital <span class="sc">+</span> <span class="fu">s</span>(gained) <span class="sc">+</span> gender <span class="sc">+</span> habit <span class="sc">+</span> whitemom, <span class="at">data =</span> train_data)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#nto sure if i needed to place factor() </span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># gam_model &lt;- gam(weight ~ s(fage) + s(mage) + factor(mature) + s(weeks) + factor(premie) + s(visits) + factor(marital) + s(gained) + factor(gender) + factor(habit) + factor(whitemom), data = train_data)</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># predict() the 'weight' variable in the test_data dataset using gam_model</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>predicted_weights <span class="ot">&lt;-</span> <span class="fu">predict</span>(gam_model, <span class="at">newdata =</span> test_data)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean squared prediction error in the test_data dataset by comparing the predicted 'weight' values with the actual 'weight' values</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>MSPE_gam <span class="ot">&lt;-</span> <span class="fu">mean</span>((test_data<span class="sc">$</span>weight <span class="sc">-</span> predicted_weights)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the value of MSPE_gam to the console</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(MSPE_gam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.099431</code></pre>
+</div>
+</div>
+</section>
+<section id="task-4" class="level2">
+<h2 class="anchored" data-anchor-id="task-4">Task 4</h2>
+<ul>
+<li>Compare the mean squared prediction error obtained from the linear regression model (<strong><code>linearmodel</code></strong>) in Task 2 and the generalized additive model (<strong><code>gam_model</code></strong>) in the previous task. You will use the <strong><code>MSPE_linear</code></strong> and <strong><code>MSPE_gam</code></strong> values to determine which model performs better in predicting the ‘weight’ variable in the <strong><code>test_data</code></strong> dataset.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print both MSPE values to console to evaluate them side by side</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MSPE_linear:"</span>, MSPE_linear, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MSPE_linear: 1.090369 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MSPE_gam:"</span>, MSPE_gam, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MSPE_gam: 1.099431 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine which model performs better based on MSPE values</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (MSPE_linear <span class="sc">&lt;</span> MSPE_gam) {</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"The linear regression model performs better in predicting 'weight' in our test_data.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (MSPE_linear <span class="sc">&gt;</span> MSPE_gam) {</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"GAM performs better in predicting 'weight' in our test_data.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The linear regression model performs better in predicting 'weight' in our test_data.</code></pre>
+</div>
+</div>
+<ul>
+<li>Comment on your findings.</li>
+</ul>
+<p>Task 5: We want the lesser MSPE value which in this case reflects our Linear model.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

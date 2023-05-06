@@ -1,0 +1,505 @@
+---
+title: "Week 4 Assignment: Yvonne Martinez"
+format: html
+editor: visual
+---
+
+## Business Problem
+
+You work for a consulting company to understand the factors on which professional Baseball players' salaries depend.
+
+You are given individual data for professional players in the Major League along with their 1986 performance measures and 1987 salary.
+
+The business goal of the consulting firm is to model the logged salary of professional Baseball players with the available independent variables. Your findings will be used by the company clients to understand how exactly the logged salaries vary with the independent variables.
+
+The data consists of 263 observations of 16 attributes. Below is a brief description of the variables in the data:
+
+**Attributes:**
+
+-   **CrAtBat** Career Times at Bat
+
+-   **CrBB** Career Walks
+
+-   **CrHits** Career Hits
+
+-   **CrHome** Career Home Runs
+
+-   **CrRbi** Career RBIs
+
+-   **CrRuns** Career Runs
+
+-   **YrMajor** Years in the Major Leagues
+
+-   **nAssts** Assists in 1986
+
+-   **nAtBat** Times at Bat in 1986
+
+-   **nBB** Walks in 1986
+
+-   **nError** Errors in 1986
+
+-   **nHits** Hits in 1986
+
+-   **nHome** Home Runs in 1986
+
+-   **nOuts** Put Outs in 1986
+
+-   **nRBI** RBIs in 1986
+
+-   **nRuns** Runs in 1986
+
+**Outcome:**
+
+**LogSalary**: Log of 1987 Salary in \$ Thousands
+
+Below, the dataset is loaded and then split into a train and test sets in a 80:20 ratio. Your job is to use the training set to build the models in Parts 1-3. In Part 4, you will use the test set to check the model performance.
+
+#### Do not change anything in this r chunk. Just run the code chunk and move to the next one
+
+```{r, echo=FALSE}
+# Run this code chunk without altering it
+# clear the session
+rm(list=ls())
+# We will need these libraries, if you will use others, just add in here
+
+library(boot)
+library(leaps)
+library(MASS)
+library(glmnet)
+library(foreign)
+
+
+# read data in R and remove player and team names, League, Division, Position and Div variables
+set.seed(5410)
+DataBaseball = read.csv("Data_RLab4.csv", header = TRUE,stringsAsFactors = TRUE)
+DataBaseball<-DataBaseball[,-c(1,2, 16, 17,18,  22)]
+
+# You can check to see if there is any missing values in the data
+#sapply(DataBaseball, function(x) sum(is.na(x)))
+
+# Do arandom split of the dataset into train and tests set by keeping 20% of the data in the test set. 
+shuffleid = sample(nrow(DataBaseball), 0.2 * nrow(DataBaseball))
+testData = DataBaseball[shuffleid, ]
+trainData = DataBaseball[-shuffleid, ]
+
+```
+
+### Part 1: Full Model on All Regressors
+
+You will only use **trainData** in **Part 1.**
+
+By using the **trainData**, fit a standard linear regression with the variable **logSalary** as the response and all other attributes as predictors. Name it as **model_full**.
+
+## Question #1
+
+According to the **model_full** results, which regression coefficients are statistically significant at the 99% confidence level? Select all that apply.
+
+```{r, echo=TRUE}
+#fit a standard linear regression with the variable logSalary as the response and all other attributes as predictors. Name it as model_full
+model_full <- lm(logSalary ~ ., data = trainData)
+summary(model_full)
+
+# Get the regression results
+summary(model_full)$coefficients
+
+#Get the  p values
+summary(model_full)$coefficients[,4]
+
+# Get the coefficients with p values less than 0.01
+
+names(which(summary(model_full)$coefficients[,4]<.01))
+
+data.frame(coef=names(which(summary(model_full)$coefficients[,4]<.01)))
+```
+
+# Question 2
+
+Calculate the mean-squared prediction error (MSPE), the adjusted $R^2$ , AIC, and BIC criterion values for **model_full.** Enter your selection in Canvas by selecting the closest answer choice from the list. 
+
+```{r, echo=TRUE}
+# Insert your R code for Question 2 in here
+# HINTS: 
+# You can whether manually calculate or use a package to calculate MSPE
+# Adjusted R Square is stored under model_full R object
+# You can consider using AIC() function in stats package to calculate the AIC value
+# You can consider using BIC() function in stats package to calculate the BIC value
+# If you want to print all your answers in one dataframe you can just put it in a dataframe with   data.frame(MSPE=,  ADJR2=, AIC=, BIC=) or just print them separately 
+
+# mean-squared prediction error (MSPE)
+MSPE_fullmodel=mean(model_full$residuals^2)
+MSPE_fullmodel
+
+# Adjusted R-squared
+RSquared_Adj_fullmodel<-summary(model_full)$adj.r.squared
+RSquared_Adj_fullmodel
+
+# AIC
+AIC<-AIC(model_full)
+AIC
+
+# BIC
+BIC<-BIC(model_full)
+BIC
+
+
+```
+
+# 
+
+# Question 3
+
+So far, we did not do any feature selection. Instead, we have calculated the Adjusted R-squared, AIC, and BIC criterion values for the full model with all features are included as predictor in our largest model. In the following parts, we will choose the best sub-model based on one of these criterion values.
+
+Now, your task is to predict **logSalary** with all the predictors in **trainData,** then calculate the mean squared prediction errors (MSPE) in the **trainData** based on 5-fold, 10-fold and leave one out cross-validation approaches?
+
+Use **cv.glm** function in R to calculate the cross validated estimates. Use **set.seed(5410)** when you calculate the cross-validated estimates
+
+**Note**: Is there an increase or decrease in MSPE with cross validation? You should be able to tell why MSPE is going up with cross-validation method.Since we assume you all know why, you are not required to enter your response in Canvas.
+
+```{r, echo=TRUE}
+# Insert your R code for Question 3 in here
+# HINTS: 
+
+# You can first create a linear model with glm() function modglm=glm(logSalary ~ ., data = trainData), then call it inside the cv.glm() function
+# cv.glm(, K=5) gives  you the 5 fold-cross validation results
+# cv.glm(, K=10) gives  you the 10 fold-cross validation results
+# cv.glm(, K=n) gives  you the LOOCV results when n is the number of rows in trainData
+
+# cv.glm() R object stores two information under delta (cv.glm()$delta). The first information gives the  cross-validation estimate of prediction error, MSPE, that is the answer.  
+
+#set the seed
+set.seed(5410)
+
+#creating linear model using glm and using training data
+modglm=glm(logSalary ~ ., data = trainData)
+
+#calculate the mean squared prediction errors (MSPE) in the trainData based on 5-fold
+
+cv5fold <- cv.glm(trainData, modglm, K = 5)
+mspe_5fold <- cv5fold$delta[1]
+print(mspe_5fold)
+
+#calculate the mean squared prediction errors (MSPE) in the trainData based on 10-fold
+
+cv10fold <- cv.glm(trainData, modglm, K = 10)
+mspe_10fold <- cv10fold$delta[1]
+print(mspe_10fold)
+
+#calculate the mean squared prediction errors (MSPE) in the trainData based on leave one out cross-validation
+
+cvl <- cv.glm(trainData, modglm, K = nrow(trainData))
+mspe_l <- cvl$delta[1]
+print(mspe_l)
+
+
+data.frame(CV5fold=mspe_5fold,  CV10fold=mspe_10fold, LeaveOO=mspe_l)
+```
+
+# Part 2: Best Subset Model Search
+
+You will only use **trainData** in Part 2.
+
+# Question 4
+
+What is the total number of different models that can be built from all possible combinations of the predictors with p=16?
+
+No coding is needed for Question 4. Just answer it in Canvas.
+
+# Question 5
+
+Warning: This question can be challenging.
+
+In this part, we will use **leaps** function in the **leaps** library in R to compare all possible models and decide on the best model by using Adjusted R-squared criteria on **trainData**.
+
+Which set of predictors will give you the highest Adjusted R-squared value when we use the ***trainData*** to train all possible subset models. Use **leaps** function in the **leaps** library in R to compare all possible models and decide on the best model. You can use leaps package and set the **nbest** parameter to **1** to get the desired table.
+
+The leaps function in R can help you to construct a table indicating the variables included in the best model of each size (p=1,p=2,..., p=16) and the corresponding Adjusted R-squared value. Hint: The table must include 16 rows, the best subset for each k. Check the lab help recordings for the details. You can use leaps package and set the nbest parameter to 1 to get the desired table. Alternatively, you can use \`regsubsets\` function in leaps package to get the same results.
+
+```{r, echo=TRUE}
+# Insert your R code for Question 5 in here
+# HINTS: 
+# You can store the predictor names with  col_names = names(trainData)[-17] and insert it into leaps() function as names= col_names)
+# nbest=1 will give   you the highest performing model for each set (models with  only 1 predictor, models  with only two predictors, ,,,,, models  with only 16 predictor)
+
+# After creating the leaps object, you can first fet the index of best model with which () function, then print the best AdjR2 values for each set
+# In the leaps () output, the coefficient 1 in front a coefficient indicates it has been selected on that set, O means not selected
+
+# use all 16 subsets using regsubsets
+leaps_md <- regsubsets(logSalary ~ ., data = trainData, nvmax = 16, nbest=1)
+
+# Get the best subset model with the highest adjusted R-squared
+best_subset <- summary(leaps_md)$which[which.max(summary(leaps_md)$adjr2),]
+print(best_subset)
+
+# Get the names of the predictors in the best subset model
+predictor_names <-names(trainData)[-1]
+best_predictors <- predictor_names[best_subset[-1]]
+
+print(best_predictors)
+
+
+data.frame(prednames=best_predictors)
+
+```
+
+# Part 3: Regularized Regression
+
+You will only use **trainData** in Part 3.
+
+# Question 6
+
+Now, we will use the **trainData** and perform RIDGE regression on the full model (**model_full**). Before performing Ridge regression, we need to standardize the predictors but there are some packages that standardize variables for you. In that case, there is no need to standardize predictors twice. For this RLab assignment, please use **glmnet** package so that you do not have to worry about standardizing your features.
+
+Your task is to write an R code to apply Ridge regression on **trainData** set with **10-fold cross validation**. Print the optimized lambda value and the minimum mean cross-validated Error. Keep the default loss function (t**ype.measure="mse"**).
+
+```{r, echo=TRUE}
+# Insert your R code for Question 6 in here
+# HINTS: 
+# in cv.glmnet() function choose  family='gaussian', type.measure="mse", alpha=0, nfolds=10 for the desired results
+# optimized lamba is stored under the cv.glmnet() R object
+# Minimum Mean CV Error is stored under cv.glmnet() R object
+
+# Optimize lambda using 10-fold cross validation
+set.seed(5410)
+
+#make into a matrix
+
+y <- trainData$logSalary
+x <- as.matrix(trainData[,-17])
+
+#RIDGE regression using glmnet package
+ridge <- cv.glmnet(x, y, family = 'gaussian', type.measure = "mse", alpha = 0, nfolds = 10)
+
+#Print the optimized lambda value
+optlambda <- ridge$lambda.min
+print(optlambda)
+
+#Print minimum mean cross-validated Error
+
+minmse <- ridge$cvm[which.min(ridge$cvm)]
+print(minmse)
+
+data.frame(optimized_lv=optlambda, min_mcv_Error=minmse)
+```
+
+```{r, echo=TRUE}
+################practice 4 code from professor#########################
+
+## Find the optimal lambda using 10-fold CV 
+# set alpha=0  for RIDGE
+# set alpha=1  for LASSO
+# set alpha=0.5  for ELASTIC NET
+# predictors and the target variable
+
+
+y.train = trainData$logSalary
+predictors.train = trainData[,-17]
+
+y.test = testData$logSalary
+predictors.test = testData[,-17
+                           ]
+
+
+
+set.seed(5410)
+# Optimize lambda using 10-fold cross validation, keep the default lambda selection
+
+RidgeCV = cv.glmnet(as.matrix(predictors.train), y.train,
+                     family='gaussian', type.measure="mse", alpha=0, nfolds=10)
+
+
+
+# plot
+plot(RidgeCV)
+
+
+# check the values of lambda used in the fits
+
+RidgeCV$lambda
+
+# check the mean cross-validated error for each lambda used
+
+RidgeCV$cvm 
+
+# get the minimum mean cross-validated error 
+
+min(RidgeCV$cvm) 
+
+
+# # number of non-zero coefficients at each lambda. For Ridge, it is all same and equal to number of predictors
+# RidgeCV$nzero
+
+# get the value of lambda which gives you the minimum cross-validated error
+
+RidgeCV$lambda.min
+
+# Use the best lambda and predict the target variable in the test set, calculate MSPE
+
+RidgePredictTest<-predict(RidgeCV,s=RidgeCV$lambda.min,newx=as.matrix(predictors.test))
+
+
+# Calculate the MSPE in the test set
+
+MSPE_Ridge_test<-mean((RidgePredictTest-y.test)^2)
+
+data.frame(optimized_lv=RidgeCV$lambda.min, min_mcv_Error=min(RidgeCV$cvm) )
+
+```
+
+# Question 7
+
+Now, we will use the **trainData** and perform **LASSO** regression on the full model (**model_full**). Please use **glmnet** package so that you do not have to worry about standardizing your features.
+
+Your task is to write an R code to apply **LASSO** regression on **trainData** set with **10-fold cross validation.** Print the optimized lambda value and the minimum mean cross-validated Error. Keep the default loss function (type.measure="mse").
+
+```{r, echo=TRUE}
+# Insert your R code for Question 7 in here
+# HINTS: 
+# in cv.glmnet() function choose  family='gaussian', type.measure="mse", alpha=0, nfolds=10 for the desired results
+# optimized lamba is stored under the cv.glmnet() R object
+# Minimum Mean CV Error is stored under cv.glmnet() R object
+# set alpha=0  for RIDGE
+# set alpha=1  for LASSO
+
+set.seed(5410)
+
+# Convert trainData to matrix format
+X <- as.matrix(trainData[, -17])
+y <- trainData$logSalary
+
+# Perform LASSO regression with 10-fold cross validation
+lasso_fit <- cv.glmnet(X, y, family = "gaussian", type.measure = "mse", alpha = 1, nfolds = 10)
+
+# Print the optimized lambda value and the minimum mean cross-validated error
+cat("Optimal lambda value:", lasso_fit$lambda.min, "\n")
+cat("Minimum mean cross-validated error:", lasso_fit$cvm[lasso_fit$lambda == lasso_fit$lambda.min], "\n")
+```
+
+```{r, echo=TRUE}
+################practice 4 code from professor#########################
+
+## Find the optimal lambda using 10-fold CV 
+# set alpha=0  for RIDGE
+# set alpha=1  for LASSO
+# set alpha=0.5  for ELASTIC NET
+# predictors and the target variable
+
+
+y.train = trainData$logSalary
+predictors.train = trainData[,-17]
+
+y.test = testData$logSalary
+predictors.test = testData[,-17]
+
+
+
+set.seed(5410)
+# Optimize lambda using 10-fold cross validation, keep the default lambda selection
+
+
+LassoCV = cv.glmnet(as.matrix(predictors.train), y.train,
+                     family='gaussian', type.measure="mse", alpha=1, nfolds=10)
+
+
+
+
+# check the values of lambda used in the fits
+
+LassoCV$lambda
+
+# check the mean cross-validated error for each lambda used
+
+LassoCV$cvm 
+
+# get the minimum mean cross-validated error 
+
+min(LassoCV$cvm) 
+
+
+# optimal lambda
+
+LassoCV$lambda.min
+
+
+# number of non-zero coefficients at each lambda. 
+LassoCV$nzero
+
+# numnber of features at the optimal lambda
+LassoCV$nzero[LassoCV$lambda == LassoCV$lambda.min]
+
+
+# Use the best lambda and predict the target variable in the test set with Lasso and  calculate MSPE
+
+LassoPredictTest<-predict(LassoCV,s=LassoCV$lambda.min,newx=as.matrix(predictors.test))
+
+
+MSPE_Lasso_test<-mean((LassoPredictTest-y.test)^2)
+
+
+
+data.frame(optimized_lv=LassoCV$lambda.min, min_mcv_Error=min(LassoCV$cvm) )
+```
+
+# Question 8
+
+Which variables were selected based on LASSO?
+
+```{r, echo=TRUE}
+# Insert your R code for Question 7 in here
+# HINTS: use coef() to extract the coefficients. Any coefficient with 0 estimate is dropped from the regression
+
+lasso_coef <- coef(LassoCV, s = LassoCV$lambda.min)
+selected_vars <- rownames(lasso_coef)[lasso_coef[,1] != 0]
+print(selected_vars)
+```
+
+```{r, echo=TRUE}
+# Insert your R code for Question 7 in here
+# HINTS: use coef() to extract the coefficients. Any coefficient with 0 estimate is dropped from the regression
+# Fit Lasso model
+# Fit Lasso model
+# Fit Lasso model
+LassoCV = cv.glmnet(as.matrix(predictors.train), y.train,
+                     family='gaussian', type.measure="mse", alpha=1, nfolds=10)
+
+
+# Get coefficients for optimal lambda
+opt_lambda = LassoCV$lambda.min
+coef_LassoCV = coef(LassoCV, s=opt_lambda)
+
+print(coef_LassoCV)
+```
+
+# PART 4
+
+You will only use **testData** in Part 4.
+
+Now, it is time to put all the fitted models a test. Predict **logSalary** for each of the rows in the test data, **testData**, using model_full in Part 1, best subset model in Part 2, and Ridge and Lasso Regression models in Part 3.
+
+Calculate the MSPE on the test set for each model and insert your answer in Canvas.
+
+```{r, echo=TRUE}
+#  Insert your R code for Question 7 in here
+
+OLSmodel<-lm(logSalary~.,data=testData)
+OLSPredictTest<-predict(OLSmodel,newx=as.matrix(predictors.test))
+MSPE_OLS_test<-mean((OLSPredictTest-y.test)^2)
+
+
+
+# performance comparison
+# OLS
+MSPE_OLS_test
+
+# Ridge
+MSPE_Ridge_test
+
+#Lasso
+MSPE_Lasso_test
+
+
+
+
+
+data.frame(MSPE_OLS_test=MSPE_OLS_test, MSPE_Ridge_test=MSPE_Ridge_test,MSPE_Lasso_test=MSPE_Lasso_test )
+```

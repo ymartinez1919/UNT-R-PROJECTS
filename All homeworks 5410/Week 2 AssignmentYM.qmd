@@ -1,0 +1,259 @@
+---
+title: "ADTA 5410 by Levent Bulut, Week 2 Lab"
+author: "Yvonne Martinez"
+format: html
+editor: visual
+output: html_document
+---
+
+## General Instructions
+
+1.  Please note that this Quarto document constitutes 10% of your weekly R Lab assignment grade. The remaining 90% of your grade is determined by your answers to questions in Canvas. Be sure to read each question in Canvas carefully and provide complete and accurate answers.
+
+2.  You can create a new folder for this lab assignment and store this Quarto document and the provided data set in the same folder you just created.
+
+3.  The first code chunk installs certain R packages that might be useful to answer some of the questions.
+
+4.  Unless instructed otherwise, you can choose any R package you want to answer the questions. You are not limited to using the packages listed in this Quarto template.
+
+5.  Be sure to include the code that produces each answer, and make sure that your code and output are visible in your knitted HTML document.
+
+6.  When you are finished, knit your Quarto document to an HTML document and save it in the folder you created in step 2.
+
+7.  Submit your assignment by answering each question in Canvas and uploading the knitted HTML document to the designated course portal in Canvas before the due date and time.
+
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(PerformanceAnalytics)
+library(car)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+
+```
+
+## Brief information to help you write your codes for each question
+
+-   In this lab assignment, you will first conduct exploratory data analysis, then use multiple linear regression method to predict your variable of interest. Also, you will check the model assumptions, check for outliers and influential factors, and finally do predictions.
+
+-   We have state level census data on various socio-economic and demographic data called **mydata**. The data consists of the following variables:
+
+```{r}
+mydata<-read.csv("Data_RLab2.csv", head=T)
+names(mydata)
+
+```
+
+-   There are `r dim(mydata)[1]` observations and `r dim(mydata)[2]`variables in the data. Some variables are presented in percentage points as a fraction of the total population. Below is a snapshot of our data.
+
+```{r, echo=FALSE}
+knitr::kable(head(mydata))
+
+```
+
+-   Our target variable is **OwnComputer**, the percentage of people who own a computer. It may not be an interesting question, yet, in this lab assignment, we will try to find the factors that determine our target variable.
+
+-   **model1** will be fit to **mydata** and it has the following predictors: **Asians**, **PovertyRate**, and **Income100K.150K**
+
+$Model~~ 1: OwnComputer = \beta_{0}+\beta_{1}Asians+\beta_{2}PovertyRate+\beta_{3}Income100K.150K +\epsilon$
+
+-   **Cook's distance** is a commonly used measure to identify influential points that have a large impact on the regression model. In this lab assignment, use a threshold Cook's Distance of 1 to identify the row numbers of any outlier and enter your answers in Canvas.
+
+-   Filter out the two observations in **mydata** that have a Cook's Distance greater than 1, and create a new dataset named **mydata1a** that excludes these outliers.
+
+-   **model1a** will be fit to **mydata1a** and it has the following predictors: **Asians**, **PovertyRate**, and **Income100K.150K**
+
+-   **model2** will be fit to **mydata1a** and it has the following predictors: **Asians**, **PovertyRate**, **Income100K.150K, Income25K.35K, SupplementarySecurityIncome, and WhiteOnly.**
+
+-   $Model ~~2: OwnComputer=\beta_{0}+\beta_{1}Asians+\beta_{2}{PovertyRate}+\beta_{3}Income100K.150K +\beta_{4}Income25K.35K+\beta_{5}SupplementarySecurityIncome+\beta_{6}WhiteOnly+\epsilon$
+
+-   Multicollinearity occurs when two or more independent variables in a regression model are highly correlated, which can result in unstable and unreliable estimates of the regression coefficients. We can check for multicollinearity by calculating the variance inflation factor (VIF). Any VIF value above ~10~ can be considered as an evidence of multi-collinearity.
+
+-   To construct **model3**, we exclude all predictors from **model2** that have a VIF value greater than 10.
+
+-   If you come across any instructions in this QMD file or a question in Canvas that you find confusing or unclear, please post your related questions in the '**Week 2 Questions in here!**' discussion forum.
+
+## Your code for Question 1
+
+```{r, echo=TRUE}
+
+#abs(cor(mydata$State, mydata$OwnComputer))
+abs(cor(mydata$CommutePublicTransport, mydata$OwnComputer))                 
+abs(cor(mydata$TotalPopulation, mydata$OwnComputer))
+abs(cor(mydata$MedianAge, mydata$OwnComputer))
+abs(cor(mydata$WithCashAssistanceIncome, mydata$OwnComputer))
+abs(cor(mydata$MeanSocialSecurityIcnome, mydata$OwnComputer))
+abs(cor(mydata$SupplementarySecurityIncome, mydata$OwnComputer))
+abs(cor(mydata$WhiteOnly, mydata$OwnComputer))
+abs(cor(mydata$Latinos, mydata$OwnComputer))
+abs(cor(mydata$Asians, mydata$OwnComputer))
+abs(cor(mydata$AfricanAmerican, mydata$OwnComputer))
+abs(cor(mydata$Income100K.150K, mydata$OwnComputer))
+abs(cor(mydata$Income75K.100K, mydata$OwnComputer))
+abs(cor(mydata$Income50K.75K, mydata$OwnComputer))
+abs(cor(mydata$Income35K.50K, mydata$OwnComputer))
+abs(cor(mydata$Income25K.35K, mydata$OwnComputer))
+```
+
+## Your code for Question 2
+
+```{r, echo=TRUE}
+# build the linear regression model called model1
+# model1 will be fit to mydata and it has the following predictors: Asians, PovertyRate, and Income100K.150K
+#lm([target] ~ [predictor / features], data = [data source])
+
+model1<- lm(OwnComputer~ Asians + PovertyRate + Income100K.150K, data = mydata)
+
+```
+
+```{r, echo=TRUE}
+# find the residual standard error value
+# find the adjusted R-squared value
+
+summary(model1)
+```
+
+## Your code for Question 3
+
+```{r, echo=TRUE}
+#using the same summary function 
+summary(model1)
+# or 
+# extract model1 coefficeint of just PovertyRate
+coef(model1)["PovertyRate"]
+```
+
+## Your code for Question 4
+
+```{r, echo=TRUE}
+#cook's distance
+model1_cook <- cooks.distance(model1)
+
+#plot it
+plot(model1_cook,type="h", ylab= "Cook's Distance")
+
+```
+
+```{r}
+# what are the rows where there are outliers 
+#(any observation with a Cook's distance measure higher than 1 )
+outliers <- as.numeric(names(model1_cook)[(model1_cook>1.0)])
+outliers
+```
+
+## Your code for Question 5
+
+```{r, echo=TRUE}
+# create a new dataset named mydata1a that excludes outliers
+
+mydata1a <- mydata[-outliers,]
+
+# create model1a
+#model1a will be fit to mydata1a and it has the following predictors: Asians, PovertyRate, and Income100K.150K
+model1a<- lm(OwnComputer~ Asians + PovertyRate + Income100K.150K, data = mydata1a)
+
+summary(model1a)
+
+```
+
+## Your code for Question 6
+
+```{r, echo=TRUE}
+
+#Extract the Adjusted R-squared value from both models to compare
+summary(model1)$adj.r.squared
+
+summary(model1a)$adj.r.squared
+
+#the higher is better so in this case model1a
+```
+
+## Your code for Question 7
+
+```{r, echo=TRUE}
+# create model2
+#model2 will be fit to mydata1a and it has the following predictors: Asians, PovertyRate, Income100K.150K, Income25K.35K, SupplementarySecurityIncome, and WhiteOnly.
+
+model2<- lm(OwnComputer~ Asians + PovertyRate + Income100K.150K + Income25K.35K + SupplementarySecurityIncome + WhiteOnly, data = mydata1a)
+
+summary(model2)
+```
+
+## Your code for Question 8
+
+```{r, echo=TRUE}
+#Based on the variance inflation factor (VIF) estimates for the predictors of model2, which predictors show sign of high degree of correlation with the other predictors (VIF score of 10 or higher)? Select all apply. 
+
+vif(model2)
+```
+
+```{r, echo=TRUE}
+# going to plot to visually see those greater than 10
+vif_values <- vif(model2)
+barplot(vif_values, main = "Model 2 VIF Values", horiz =TRUE, col = "purple", xlim=c(0,28))
+
+# add a line at 10
+abline(v=10, lwd = 3, lty =2)
+
+
+```
+
+## Your code for Question 9
+
+```{r, echo=TRUE}
+#construct model3, 
+#exclude all predictors from model2 that have a VIF value greater than 10
+
+model3<- lm(OwnComputer~ Asians + SupplementarySecurityIncome + WhiteOnly, data = mydata1a)
+
+summary(model3)
+
+```
+
+## Your code for Question 10
+
+```{r, echo=TRUE}
+# extract all models Adjusted-R squared value
+summary(model1)$adj.r.squared
+
+summary(model1a)$adj.r.squared
+
+summary(model2)$adj.r.squared
+
+summary(model3)$adj.r.squared
+
+```
+
+## Your code for Question 11
+
+Consider the following scenario: Canada held a referendum to become the 51st state of the United States, and the US accepted their request with pleasure."
+
+Use **model2** to predict the **OwnComputer** ratio in Canada with a 90% prediction interval.
+
+Hypothetical Data for Canada:
+
+Asians: 18.4
+
+PovertyRate: 5.8
+
+Income100K.150K: 23
+
+Income25K.35K: 13
+
+SupplementarySecurityIncome: 9
+
+WhiteOnly: 75
+
+```{r, echo=TRUE}
+Canada<-data.frame(Asians=18.4,PovertyRate=5.8,Income100K.150K=23,Income25K.35K= 13,SupplementarySecurityIncome= 9,WhiteOnly=75)
+
+#predict
+predict.lm(model2, Canada, interval = "predict", level=0.90)
+
+#fit model with training data we end up with a narrower confidence interval 
+
+predict.lm(model2, Canada, interval = "confidence", level=0.90)
+```

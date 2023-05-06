@@ -1,0 +1,184 @@
+---
+title: "ADTA 5410: Week 7 R Lab"
+author: "Yvonne Martinez"
+format: html
+editor: visual
+---
+
+## Data
+
+We will use North Carollina birth records for the year 2004. We want to look at the relation between the habits and practices of expectant mothers and the birth of their children. The dataset is a random sample from the original dataset.
+
+## 
+
+**Predictors**
+
+-   **fage**: father's age in years.
+
+-   **mage**: mother's age in years.
+
+-   **mature**: maturity status of mother.
+
+-   **weeks**: length of pregnancy in weeks.
+
+-   **premie**: whether the birth was classified as premature (premie) or full-term.
+
+-   **visits**: number of hospital visits during pregnancy.
+
+-   **marital**: whether mother is married or not married at birth.
+
+-   **gained**: weight gained by mother during pregnancy in pounds.
+
+-   **gender**: gender of the baby, female or male.
+
+-   **habit**: status of the mother as a nonsmoker or a smoker.
+
+-   **whitemom**: whether mother is white or not white.
+
+# **Outcome variables[¶](https://instructorecdsjwfd.labs.coursera.org/notebooks/source/Week5/Week5_Lab.ipynb#Outcome-variables)**
+
+-   **weight**: weight of the baby at birth in pounds. (Regression problem)
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(rpart)
+
+
+# data is stored in a csv file, the first row contains the variable names. 
+# we call our data mydata
+mydata<-read.csv ("nc.csv", header=TRUE)
+# let's print the data structure to have an idea of the data we are dealing with
+
+mydata<-mydata%>%
+  select(-lowbirthweight)
+str(mydata)
+
+```
+
+```{r}
+# Let's also take a look at the data
+print(head(mydata))
+
+# check the summary statistics 
+
+print(summary(mydata))
+```
+
+## 
+
+Data Split
+
+Before conducting our analysis, we will split our data into two, one for training and one for testing. In this lab assignment, use the **sample** function in **rsample** package to split your data by using the following seed: **set.seed(1234)**
+
+# **Task 1:**
+
+By using the **sample** function in R, split **mydata** into training and test sets by putting 70% of the data in training. Use set.seed(1234) when you do the split. Name the training set as **train_data** and the test set as **test_data**.
+
+```{r, echo=TRUE}
+# You can check to see if there is any missing values in the data
+sapply(mydata, function(x) sum(is.na(x))) 
+```
+
+```{r, echo=TRUE}
+
+# Set seed for reproducibility
+set.seed(1234)
+
+# Split mydata into training and test sets by putting 70% of the data in training.
+# Name the training set as train_data and the test set as test_data.
+shuffleid <- sample(nrow(mydata), round(0.7 * nrow(mydata)))
+train_data <- mydata[shuffleid, ]
+test_data <- mydata[-shuffleid, ]
+
+
+# View the training and test sets
+train_data
+test_data
+```
+
+## Task 2:
+
+In this task, you will be using the **`train_data`** dataset to run a linear regression that takes 'weight' as the dependent variable and all the other columns as the predictor.
+
+-   You will use the **`lm()`** function to estimate your linear model and name it as **`linearmodel`**.
+
+-   Use the **`predict()`** function to predict the 'weight' variable in the **`test_data`** dataset using **`linearmodel`**.
+
+-   Store the resulting predictions in a new object called **`predicted_weights`**.
+
+-   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted 'weight' values with the actual 'weight' values. Store the resulting value in an object called **`MSPE_linear`**.
+
+-   Print the value of **`MSPE_linear`** to the console using the **`print()`** function.
+
+    ```{r, echo=TRUE}
+
+    # Run linear regression on train_data using weight as predicted variable 
+    # Use lm() function and name it as linearmodel
+    linearmodel <- lm(weight ~ ., data = train_data)
+
+    # Predict weight variable in test_data using linearmodel
+    # Use predict() function 
+    predicted_weights <- predict(linearmodel, newdata = test_data)
+
+    # Calculate mean squared prediction error by comparing the predicted 'weight' values with the actual 'weight' values.
+    # Store the resulting value in an object called MSPE_linear
+    # Ignore the nulls for calc
+    MSPE_linear <- mean((test_data$weight - predicted_weights)^2, na.rm = TRUE)
+
+    # Print MSPE_linear to console
+    print(MSPE_linear)
+
+    ```
+
+    ## Task 3:
+
+-   Use the generalized additive model (GAM) function in the **`mgcv`** package to complete the same task. In other words, fit a GAM on the `train_data` using the **`gam()`** function. Use the **`s()`** function for each predictor. By doing so, you specify that each predictor variable is modeled using a smoothing spline. Save your R object as `gam_model`
+
+-   Use the **`predict()`** function to predict the 'weight' variable in the **`test_data`** dataset using **`gam_model`**. Store the resulting predictions in a new object called **`predicted_weights`**.
+
+-   Calculate the mean squared prediction error in the **`test_data`** dataset by comparing the predicted 'weight' values with the actual 'weight' values. Store the resulting value in an object called **`MSPE_gam`**.
+
+Print the value of **`MSPE_gam`** to the console using the **`print()`** function.
+
+```{r, echo=TRUE}
+
+library(mgcv)
+ 
+# Fit a GAM on the train_data dataset using the gam() function
+# Inserting factor variable inside a smoothing function (s()) can create all kinds of problem. so left them out
+gam_model <- gam(weight ~ s(fage) + s(mage) + mature + s(weeks) + premie + s(visits) + marital + s(gained) + gender + habit + whitemom, data = train_data)
+
+#nto sure if i needed to place factor() 
+# gam_model <- gam(weight ~ s(fage) + s(mage) + factor(mature) + s(weeks) + factor(premie) + s(visits) + factor(marital) + s(gained) + factor(gender) + factor(habit) + factor(whitemom), data = train_data)
+
+# predict() the 'weight' variable in the test_data dataset using gam_model
+predicted_weights <- predict(gam_model, newdata = test_data)
+
+# Calculate the mean squared prediction error in the test_data dataset by comparing the predicted 'weight' values with the actual 'weight' values
+MSPE_gam <- mean((test_data$weight - predicted_weights)^2, na.rm = TRUE)
+
+# Print the value of MSPE_gam to the console
+print(MSPE_gam)
+```
+
+## Task 4
+
+-   Compare the mean squared prediction error obtained from the linear regression model (**`linearmodel`**) in Task 2 and the generalized additive model (**`gam_model`**) in the previous task. You will use the **`MSPE_linear`** and **`MSPE_gam`** values to determine which model performs better in predicting the 'weight' variable in the **`test_data`** dataset.
+
+```{r,echo=TRUE}
+# Print both MSPE values to console to evaluate them side by side
+cat("MSPE_linear:", MSPE_linear, "\n")
+cat("MSPE_gam:", MSPE_gam, "\n")
+
+# Determine which model performs better based on MSPE values
+if (MSPE_linear < MSPE_gam) {
+  cat("The linear regression model performs better in predicting 'weight' in our test_data.\n")
+} else if (MSPE_linear > MSPE_gam) {
+  cat("GAM performs better in predicting 'weight' in our test_data.\n")
+}
+```
+
+-   Comment on your findings.
+
+Task 5: We want the lesser MSPE value which in this case reflects our Linear model.
